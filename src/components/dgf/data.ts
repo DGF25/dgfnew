@@ -100,7 +100,7 @@ export const trackStats: Stat[] = [
   { value: "25", suffix: "+", label: "Years operating", variant: "dark" },
   { value: "8", label: "Funds raised", variant: "dark" },
   { value: "Top Quartile", label: "vs. global benchmarks", variant: "light" },
-  { value: "42", label: "Realized investments", variant: "light" },
+  { value: "5", label: "Fully Realized Funds", variant: "light" },
 ];
 
 export interface TeamMember { ini: string; name: string; role: string; li?: string; bio?: string; }
