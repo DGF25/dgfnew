@@ -39,7 +39,7 @@ export const companies: Company[] = [
   { id: 24, ini: "EM", name: "Mercado Eletrônico", desc: "B2B marketplace and corporate procurement", type: "ativo", site: "https://www.me.com.br" },
   { id: 25, ini: "LG", name: "Logocenter", desc: "ERP that originated TOTVS", type: "saida", highlight: true, site: "https://www.totvs.com" },
   { id: 26, ini: "BU", name: "Buddemeyer", desc: "Traditional textile industry, modernization and market expansion", type: "saida", site: "https://www.buddemeyer.com.br" },
-  { id: 27, ini: "PX", name: "Pollux", desc: "Industrial automation and robotics for manufacturing", type: "saida" },
+  { id: 27, ini: "PX", name: "Pollux", desc: "Industrial automation and robotics for manufacturing", type: "saida", site: "https://pollux.com.br" },
   { id: 28, ini: "W2", name: "W2B", desc: "B2B e-commerce platform for enterprises", type: "saida" },
   { id: 29, ini: "RN", name: "Reason", desc: "Automation systems for the electric power sector", type: "saida" },
   { id: 30, ini: "ST", name: "Suntech", desc: "Telecom software and network management", type: "saida" },

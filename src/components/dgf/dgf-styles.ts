@@ -143,7 +143,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
 a.dgf-cocard { text-decoration: none; color: inherit; }
 .dgf-cocard:hover { border-color: var(--green-bright); transform: translateY(-3px); box-shadow: 0 8px 32px rgba(29,118,72,0.18); }
 .dgf-cocard__badge { width: 46px; height: 46px; border-radius: var(--r-md); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px; color: #fff; letter-spacing: -0.02em; background: linear-gradient(135deg, var(--green), var(--green-bright)); }
-.dgf-cocard__badge--exit { background: rgba(255,255,255,0.08); }
+.dgf-cocard__badge--exit { background: #fff; color: var(--green); border: 1px solid rgba(255,255,255,0.12); }
 .dgf-cocard__badge--img { background: #fff; padding: 7px; border: 1px solid rgba(255,255,255,0.12); }
 .dgf-cocard__badge--img img { width: 100%; height: 100%; object-fit: contain; filter: grayscale(1); transition: filter 0.25s var(--ease); }
 .dgf-cocard:hover .dgf-cocard__badge--img img { filter: none; }
