@@ -246,7 +246,7 @@ export default function DGFWebsite() {
               <p className="dgf-eyebrow">About the Firm</p>
               <h2 className="dgf-h2">Built for the long term.<br /><span className="serif" style={{ color: "var(--green)" }}>Aligned with founders.</span></h2>
               <p>Our founding team has invested in <strong>software and capital-efficient models</strong> since 1998; DGF was founded in 2001.</p>
-              <p>In between, the technology changed completely — the discipline did not.</p>
+              <p>In between, the technology changed completely. <strong>The discipline did not.</strong></p>
               <p>Today we back the next generation of <strong>B2B platforms</strong>, where applied AI automates complex workflows and unlocks value that legacy software could not reach. Our advantage is pattern recognition: eight funds of knowing which problems compound and which companies endure.</p>
               <div className="dgf-sources" style={{ marginTop: 28 }}>
                 <a className="dgf-source" href={VIDEO_URL} target="_blank" rel="noreferrer">Watch our institutional video ↗</a>
