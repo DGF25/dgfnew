@@ -220,12 +220,11 @@ export default function DGFWebsite() {
             <span style={{ letterSpacing: "0.04em" }}>25 years · São Paulo</span>
           </div>
           <h1 className="dgf-hero__title">
-            <span className="dim">Three decades of</span> Venture Capital experience{" "}
-            <span className="dim">through</span> process, discipline{" "}
-            <span className="dim">and</span> <span className="serif dgf-grad-text">resilience</span>.
+            <span className="dim">Backing early-stage</span> software founders{" "}
+            <span className="dim">through</span> <span className="serif dgf-grad-text">cycles</span>.
           </h1>
           <p className="dgf-hero__sub">
-            Backing early-stage software founders for over two decades, with returns benchmarked against global venture capital.
+            Three decades of venture capital, built on process, discipline and resilience.
           </p>
           <div className="dgf-actions">
             <button className="dgf-btn dgf-btn--primary" onClick={() => goTo("portfolio")}>View portfolio</button>
@@ -246,9 +245,9 @@ export default function DGFWebsite() {
             <Reveal className="dgf-about__body">
               <p className="dgf-eyebrow">About the Firm</p>
               <h2 className="dgf-h2">Built for the long term.<br /><span className="serif" style={{ color: "var(--green)" }}>Aligned with founders.</span></h2>
-              <p>Since 1998, our founding team has been investing in <strong>software and capital-efficient models</strong>. Today, we look for the next generation of B2B platforms, leveraging applied AI to automate complex workflows and capture unprecedented value.</p>
-              <p>Founded in 2001, DGF has weathered economic cycles, market shifts and model evolutions.</p>
-              <p>That is where our expertise generates real value for founders building enduring companies.</p>
+              <p>Our founding team has invested in <strong>software and capital-efficient models</strong> since 1998; DGF was founded in 2001.</p>
+              <p>In between, the technology changed completely — the discipline did not.</p>
+              <p>Today we back the next generation of <strong>B2B platforms</strong>, where applied AI automates complex workflows and unlocks value that legacy software could not reach. Our advantage is pattern recognition: eight funds of knowing which problems compound and which companies endure.</p>
               <div className="dgf-sources" style={{ marginTop: 28 }}>
                 <a className="dgf-source" href={VIDEO_URL} target="_blank" rel="noreferrer">Watch our institutional video ↗</a>
                 <a className="dgf-source" href={LINKEDIN_URL} target="_blank" rel="noreferrer">LinkedIn ↗</a>
@@ -269,8 +268,8 @@ export default function DGFWebsite() {
                   <div className="dgf-card-label">Current fund</div>
                 </div>
                 <div className="dgf-card-stat">
-                  <div className="dgf-card-num">US$1–3M</div>
-                  <div className="dgf-card-label">Initial check size</div>
+                  <div className="dgf-card-num" style={{ fontSize: 22, lineHeight: 1.15 }}>Seed / Series A</div>
+                  <div className="dgf-card-label">Focus</div>
                 </div>
               </div>
             </Reveal>
