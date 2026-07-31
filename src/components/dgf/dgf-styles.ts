@@ -139,7 +139,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
 .dgf-filter:hover { border-color: var(--green-bright); color: #fff; }
 .dgf-filter[aria-pressed="true"] { background: var(--green-bright); border-color: var(--green-bright); color: #fff; }
 .dgf-filter__count { opacity: 0.6; margin-left: 6px; font-variant-numeric: tabular-nums; }
-.dgf-cocard { background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--r-lg); padding: 26px 24px; min-height: 180px; display: flex; flex-direction: column; gap: 14px; text-align: left; transition: transform 0.3s var(--ease), border-color 0.3s var(--ease), box-shadow 0.3s var(--ease); }
+.dgf-cocard { background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--r-lg); padding: 26px 24px; min-height: 180px; height: 100%; display: flex; flex-direction: column; gap: 14px; text-align: left; transition: transform 0.3s var(--ease), border-color 0.3s var(--ease), box-shadow 0.3s var(--ease); }
 a.dgf-cocard { text-decoration: none; color: inherit; }
 .dgf-cocard:hover { border-color: var(--green-bright); transform: translateY(-3px); box-shadow: 0 8px 32px rgba(29,118,72,0.18); }
 .dgf-cocard__badge { width: 46px; height: 46px; border-radius: var(--r-md); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px; color: #fff; letter-spacing: -0.02em; background: linear-gradient(135deg, var(--green), var(--green-bright)); }
@@ -149,7 +149,7 @@ a.dgf-cocard { text-decoration: none; color: inherit; }
 .dgf-cocard:hover .dgf-cocard__badge--img img { filter: none; }
 .dgf-cocard__body { flex: 1; }
 .dgf-cocard__name { font-size: 15.5px; font-weight: 500; color: #fff; margin-bottom: 6px; letter-spacing: -0.01em; }
-.dgf-cocard__desc { font-size: 13px; color: var(--on-dark-3); line-height: 1.55; }
+.dgf-cocard__desc { font-size: 13px; color: var(--on-dark-3); line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .dgf-cocard__foot { display: flex; justify-content: space-between; align-items: center; padding-top: 4px; }
 .dgf-tag { font-size: 11px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; }
 .dgf-tag--ativo { color: var(--green-accent); }
@@ -199,7 +199,8 @@ a.dgf-teamcard:hover .dgf-teamcard__li { opacity: 1; }
 .dgf-footer__copy { font-size: 11.5px; color: rgba(255,255,255,0.4); letter-spacing: 0.02em; }
 .dgf-reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
 .dgf-reveal.is-visible { opacity: 1; transform: none; }
-.dgf-cards { display: grid; grid-template-columns: 1fr; gap: 14px; }
+.dgf-cards { display: grid; grid-template-columns: 1fr; grid-auto-rows: 1fr; gap: 14px; }
+.dgf-cards > .dgf-reveal { height: 100%; }
 @media (min-width: 768px) {
   .dgf-nav { height: 68px; padding: 0 40px; }
   .dgf-nav__links, .dgf-nav__cta { display: flex; }
