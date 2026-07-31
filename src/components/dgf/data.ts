@@ -94,7 +94,7 @@ export interface Stat {
 export const heroStats: Stat[] = [
   { value: "25", suffix: "+", label: "Years operating" },
   { value: "67", label: "Investments" },
-  { value: "42", label: "Exits" },
+  { value: "42", label: "Realized" },
 ];
 export const trackStats: Stat[] = [
   { value: "25", suffix: "+", label: "Years operating", variant: "dark" },
