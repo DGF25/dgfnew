@@ -1,3 +1,21 @@
+/**
+ * DGF Investimentos — single-page site.
+ *
+ * MAINTENANCE MAP
+ * ─ Copy & content ......... edit the JSX sections below (#home, #sobre, #tese,
+ *                            #portfolio, #track, #time, #contato) — plain text.
+ * ─ Companies, thesis,
+ *   stats, team, nav ....... src/components/dgf/data.ts (typed arrays; add
+ *                            `site` to a company to show its logo + link).
+ * ─ Design system (CSS) .... src/components/dgf/dgf-styles.ts (all classes
+ *                            are prefixed `dgf-`; breakpoints at 768/1024px).
+ * ─ Tab title / SEO / OG ... src/routes/__root.tsx and src/routes/index.tsx.
+ * ─ Favicons / OG image .... public/ (favicon.ico, favicon-*.png, dgf-og-image.png).
+ * ─ CVM page (PT) .......... src/routes/cvm-disclosures.tsx.
+ *
+ * Company logos are fetched from Google's favicon service using the domain in
+ * `site`; if the fetch fails the card falls back to the monogram tile.
+ */
 import {
   useCallback,
   useEffect,
@@ -217,11 +235,11 @@ export default function DGFWebsite() {
           <div className="dgf-blob dgf-hero__blob" aria-hidden="true" />
           <div className="dgf-badge">
             <span className="dgf-badge__dot dgf-glow" aria-hidden="true" />
-            <span style={{ letterSpacing: "0.04em" }}>25 years · São Paulo</span>
+            <span style={{ letterSpacing: "0.04em" }}>São Paulo · Since 2001</span>
           </div>
           <h1 className="dgf-hero__title">
             <span className="dim">Backing early-stage</span> software founders{" "}
-            <span className="dim">through</span> <span className="serif dgf-grad-text">cycles</span>.
+            <span className="dim">through</span> <span className="serif dgf-grad-text">cycles</span>
           </h1>
           <p className="dgf-hero__sub">
             Three decades of venture capital, built on process, discipline and resilience.
@@ -245,8 +263,8 @@ export default function DGFWebsite() {
             <Reveal className="dgf-about__body">
               <p className="dgf-eyebrow">About the Firm</p>
               <h2 className="dgf-h2">Built for the long term.<br /><span className="serif" style={{ color: "var(--green)" }}>Aligned with founders.</span></h2>
-              <p>Our founding team has invested in <strong>software and capital-efficient models</strong> since 1998; DGF was founded in 2001.</p>
-              <p>In between, the technology changed completely. <strong>The discipline did not.</strong></p>
+              <p>Our founding team was investing in <strong>capital-efficient software businesses</strong> before DGF was founded, in 2001.</p>
+              <p>Since then, the technology has changed completely. <strong>The discipline hasn't.</strong></p>
               <p>Today we back the next generation of <strong>B2B platforms</strong>, where applied AI automates complex workflows and unlocks value that legacy software could not reach. Our advantage is pattern recognition: eight funds of knowing which problems compound and which companies endure.</p>
               <div className="dgf-sources" style={{ marginTop: 28 }}>
                 <a className="dgf-source" href={VIDEO_URL} target="_blank" rel="noreferrer">Watch our institutional video ↗</a>
@@ -355,7 +373,7 @@ export default function DGFWebsite() {
           <div className="dgf-container">
             <Reveal>
               <p className="dgf-eyebrow">Track Record</p>
-              <h2 className="dgf-h2">25+ years of consistency<br />and <span className="serif" style={{ color: "var(--green)" }}>discipline</span>.</h2>
+              <h2 className="dgf-h2">Three decades of consistency<br />and <span className="serif" style={{ color: "var(--green)" }}>discipline</span>.</h2>
               <p className="dgf-lead" style={{ marginBottom: 24 }}>Performance validated by the market. Discipline that delivers leadership-level returns.</p>
               <p className="dgf-lead" style={{ marginBottom: 20 }}>We combine historical consistency and capital efficiency to position our funds among the top of the global venture capital industry, with a proven track record of top-quartile funds.</p>
               <p className="dgf-lead dgf-callout" style={{ marginBottom: 48 }}>We have navigated <strong>economic cycles</strong>, delivering <strong>liquidity and solid returns</strong> to our investors, without ever losing <strong>alignment with founders</strong>.</p>
