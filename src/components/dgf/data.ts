@@ -38,7 +38,7 @@ export const companies: Company[] = [
   { id: 23, ini: "RC", name: "Rocket.Chat", desc: "Secure open source enterprise communication", type: "ativo", site: "https://rocket.chat" },
   { id: 24, ini: "EM", name: "Mercado Eletrônico", desc: "B2B marketplace and corporate procurement", type: "ativo", site: "https://www.me.com.br" },
   { id: 25, ini: "LG", name: "Logocenter", desc: "ERP that originated TOTVS", type: "saida", highlight: true, site: "https://www.totvs.com" },
-  { id: 26, ini: "BU", name: "Buddemeyer", desc: "Traditional textile industry, modernization and market expansion", type: "saida", site: "https://www.buddemeyer.com.br" },
+  { id: 26, ini: "BU", name: "Buddemeyer", desc: "Textile company", type: "saida", site: "https://www.buddemeyer.com.br" },
   { id: 27, ini: "PX", name: "Pollux", desc: "Industrial automation and robotics for manufacturing", type: "saida", site: "https://pollux.com.br" },
   { id: 28, ini: "W2", name: "W2B", desc: "B2B e-commerce platform for enterprises", type: "saida" },
   { id: 29, ini: "RN", name: "Reason", desc: "Power-grid automation, acquired by Alstom Grid (now GE Vernova)", type: "saida", site: "https://www.gevernova.com" },
