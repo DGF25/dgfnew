@@ -69,7 +69,7 @@ export const companies: Company[] = [
   { id: 53, ini: "IG", name: "Ingresse", desc: "Event ticketing platform", type: "saida", site: "https://www.ingresse.com" },
   { id: 54, ini: "GF", name: "Geofusion", desc: "Geographic intelligence for retail and expansion", type: "saida", site: "https://www.geofusion.com.br" },
   { id: 55, ini: "WR", name: "Webradar", desc: "Monitoring and analytics for telecommunications", type: "saida", site: "https://webradar.com" },
-  { id: 56, ini: "RA", name: "Reclame Aqui", desc: "Consumer reputation and relationship platform", type: "saida", site: "https://reclameaqui.com.br" },
+  { id: 56, ini: "RA", name: "Reclame Aqui", desc: "Consumer reputation and relationship platform", type: "saida", highlight: true, site: "https://reclameaqui.com.br" },
   { id: 57, ini: "SG", name: "Stilingue", desc: "Social intelligence, acquired by Blip", type: "saida", site: "https://www.blip.ai" },
   { id: 58, ini: "DW", name: "Drumwave", desc: "Consumer data management and monetization", type: "saida", site: "https://drumwave.com" },
   { id: 59, ini: "AT", name: "Adianta", desc: "Receivables financing, acquired by Liber Capital", type: "saida", site: "https://www.libercapital.com.br" },
