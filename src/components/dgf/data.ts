@@ -37,6 +37,7 @@ export const companies: Company[] = [
   { id: 22, ini: "TA", name: "TripAround", desc: "Smart corporate travel platform", type: "ativo", site: "https://www.triparound.com" },
   { id: 23, ini: "RC", name: "Rocket.Chat", desc: "Secure open source enterprise communication", type: "ativo", site: "https://rocket.chat" },
   { id: 24, ini: "EM", name: "Mercado Eletrônico", desc: "B2B marketplace and corporate procurement", type: "ativo", site: "https://www.me.com.br" },
+  { id: 61, ini: "MK", name: "Makasí", desc: "Digital construction financing platform", type: "ativo", site: "https://www.makasi.com.br" },
   { id: 25, ini: "LG", name: "Logocenter", desc: "ERP that originated TOTVS", type: "saida", highlight: true, site: "https://www.totvs.com" },
   { id: 26, ini: "BU", name: "Buddemeyer", desc: "Textile company", type: "saida", site: "https://www.buddemeyer.com.br" },
   { id: 27, ini: "PX", name: "Pollux", desc: "Industrial automation, acquired by Accenture", type: "saida", site: "https://www.accenture.com" },
