@@ -8,7 +8,9 @@
  *   stats, team, nav ....... src/components/dgf/data.ts (typed arrays; add
  *                            `site` to a company to show its logo + link).
  * ─ Design system (CSS) .... src/components/dgf/dgf-styles.ts (all classes
- *                            are prefixed `dgf-`; breakpoints at 768/1024px).
+ *                            are prefixed `dgf-`; breakpoints at 520/768/1024px;
+ *                            hover effects live inside a `@media (hover:hover)`
+ *                            block so touch devices never get "stuck" hovers).
  * ─ Tab title / SEO / OG ... src/routes/__root.tsx and src/routes/index.tsx.
  * ─ Favicons / OG image .... public/ (favicon.ico, favicon-*.png, dgf-og-image.png).
  * ─ CVM page (PT) .......... src/routes/cvm-disclosures.tsx.
@@ -19,6 +21,7 @@
 import {
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
   type CSSProperties,
@@ -42,11 +45,18 @@ const LINKEDIN_URL = "https://br.linkedin.com/company/dgf-investimentos";
 const CONTACT_EMAIL = "startups@dgf.com.br";
 const STUDY_URL = "https://docsend.com/view/s/4q4d4sushrypmk9n";
 
+/* Sections have `scroll-margin-top` in CSS, so native smooth scrolling lands
+ * below the fixed header instead of underneath it. */
 function scrollToId(id: string) {
   const el = document.getElementById(id);
   if (!el) return;
   const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
   el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+}
+
+/* Diacritics-insensitive matcher so "solides" finds "Sólides". */
+function normalize(s: string) {
+  return s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 
 function Reveal({
@@ -108,6 +118,8 @@ function CompanyBadge({ company }: { company: Company }) {
           src={`https://www.google.com/s2/favicons?domain=${domain}&sz=128`}
           alt=""
           loading="lazy"
+          decoding="async"
+          referrerPolicy="no-referrer"
           onError={() => setFailed(true)}
         />
       ) : (
@@ -121,6 +133,7 @@ export default function DGFWebsite() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [filter, setFilter] = useState<"all" | "ativo" | "saida">("all");
+  const [query, setQuery] = useState("");
   const [activeSection, setActiveSection] = useState("home");
 
   const sentinelRef = useRef<HTMLDivElement | null>(null);
@@ -157,6 +170,17 @@ export default function DGFWebsite() {
     return () => window.removeEventListener("keydown", onKey);
   }, [menuOpen]);
 
+  /* Lock body scroll while the mobile menu is open — otherwise the page
+   * scrolls behind the overlay and the menu detaches from the header. */
+  useEffect(() => {
+    if (!menuOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [menuOpen]);
+
   const goTo = useCallback((id: string) => {
     setMenuOpen(false);
     scrollToId(id);
@@ -165,15 +189,23 @@ export default function DGFWebsite() {
   const activeCount = companies.filter((c) => c.type === "ativo").length;
   const exitCount = companies.filter((c) => c.type === "saida").length;
   const highlightCount = companies.filter((c) => c.highlight).length;
-
-  const filtered: Company[] =
-    filter === "all"
-      ? companies.filter((c) => c.highlight)
-      : filter === "saida"
-        ? companies.filter((c) => c.type === "saida")
-        : companies.filter((c) => c.type === "ativo");
-
   const othersCount = companies.filter((c) => c.type === "ativo" && !c.highlight).length;
+
+  /* Search behaviour: within the current tab; on "Selected Investments" an
+   * active query widens to ALL companies, so a search never comes back empty
+   * just because a company isn't highlighted. */
+  const searching = query.trim().length > 0;
+  const filtered: Company[] = useMemo(() => {
+    const base =
+      filter === "all"
+        ? searching
+          ? companies
+          : companies.filter((c) => c.highlight)
+        : companies.filter((c) => c.type === filter);
+    if (!searching) return base;
+    const q = normalize(query);
+    return base.filter((c) => normalize(c.name).includes(q) || normalize(c.desc).includes(q));
+  }, [filter, query, searching]);
 
   const filterOptions: { value: typeof filter; label: string; count: number }[] = [
     { value: "all", label: "Selected Investments", count: highlightCount },
@@ -222,12 +254,16 @@ export default function DGFWebsite() {
       </nav>
 
       {menuOpen && (
-        <div className="dgf-mobilemenu" id="dgf-mobile-menu">
-          {navLinks.map((l) => (
-            <button key={l.id} className="dgf-mobilemenu__link" onClick={() => goTo(l.id)}>{l.label}</button>
-          ))}
-          <button className="dgf-cta" onClick={() => goTo("contato")}>Get in touch →</button>
-        </div>
+        <>
+          {/* Tap outside to dismiss */}
+          <div className="dgf-mobilemenu__backdrop" onClick={() => setMenuOpen(false)} aria-hidden="true" />
+          <div className="dgf-mobilemenu" id="dgf-mobile-menu">
+            {navLinks.map((l) => (
+              <button key={l.id} className="dgf-mobilemenu__link" onClick={() => goTo(l.id)}>{l.label}</button>
+            ))}
+            <button className="dgf-cta" onClick={() => goTo("contato")}>Get in touch →</button>
+          </div>
+        </>
       )}
 
       <main id="conteudo">
@@ -331,8 +367,35 @@ export default function DGFWebsite() {
                 ))}
               </div>
             </div>
+
+            <div className="dgf-search">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="7" />
+                <path d="M21 21l-4.35-4.35" />
+              </svg>
+              <input
+                type="search"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search companies…"
+                aria-label="Search portfolio companies"
+              />
+              {searching && (
+                <button className="dgf-search__clear" onClick={() => setQuery("")} aria-label="Clear search">×</button>
+              )}
+            </div>
+            {searching && (
+              <p className="dgf-results" role="status" aria-live="polite">
+                {filtered.length} {filtered.length === 1 ? "company matches" : "companies match"} "{query.trim()}"
+              </p>
+            )}
+
             <div className="dgf-cards">
-              {filtered.length === 0 && <p className="dgf-empty">No companies in this filter.</p>}
+              {filtered.length === 0 && (
+                <p className="dgf-empty">
+                  {searching ? <>No companies match "{query.trim()}".</> : "No companies in this filter."}
+                </p>
+              )}
               {filtered.map((c, i) => {
                 const CardTag = c.site ? "a" : "article";
                 return (
@@ -353,7 +416,7 @@ export default function DGFWebsite() {
                   </Reveal>
                 );
               })}
-              {filter === "all" && (
+              {filter === "all" && !searching && (
                 <Reveal delay={Math.min(filtered.length * 40, 320)}>
                   <button className="dgf-cocard dgf-cocard--cta" onClick={() => setFilter("ativo")}>
                     <div className="dgf-cocard__badge" aria-hidden="true">+</div>
@@ -385,7 +448,8 @@ export default function DGFWebsite() {
                     <div className="dgf-trackcard__blob" aria-hidden="true" />
                     <div className="dgf-trackcard__label">{s.label}</div>
                     <div className="dgf-trackcard__value">
-                      <span className="dgf-trackcard__num">{s.value}</span>
+                      {/* Long text values (e.g. "Top Quartile") get a smaller type scale so they never overflow on mobile. */}
+                      <span className={`dgf-trackcard__num${s.value.length > 4 ? " dgf-trackcard__num--text" : ""}`}>{s.value}</span>
                       {s.suffix && <span className="dgf-trackcard__suffix">{s.suffix}</span>}
                     </div>
                   </div>
@@ -459,6 +523,18 @@ export default function DGFWebsite() {
         <div className="dgf-footer__rule" aria-hidden="true" />
         <div className="dgf-footer__copy">© {new Date().getFullYear()} DGF Investimentos · São Paulo</div>
       </footer>
+
+      {/* Floating back-to-top: appears once the reader leaves the hero. */}
+      <button
+        className={`dgf-totop${activeSection !== "home" ? " is-visible" : ""}`}
+        onClick={() => goTo("home")}
+        aria-label="Back to top"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M12 19V5" />
+          <path d="M5 12l7-7 7 7" />
+        </svg>
+      </button>
     </div>
   );
 }
