@@ -104,23 +104,37 @@ function Reveal({
   );
 }
 
+/**
+ * Company logo with a graceful fallback chain:
+ *   1. `company.logo` (explicit URL — most faithful, use when step 2 fails)
+ *   2. Google's favicon service for `company.site`'s domain
+ *   3. the monogram tile (`company.ini`)
+ * Steps advance on image load errors, so a dead URL never leaves a blank card.
+ */
 function CompanyBadge({ company }: { company: Company }) {
-  const [failed, setFailed] = useState(false);
   const domain = company.site ? company.site.replace(/^https?:\/\//, "").replace(/\/.*$/, "") : null;
-  const showImg = Boolean(domain) && !failed;
+  const sources = [
+    company.logo,
+    domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=128` : null,
+  ].filter((s): s is string => Boolean(s));
+
+  const [step, setStep] = useState(0);
+  const src = sources[step];
+
   return (
     <div
-      className={`dgf-cocard__badge${company.type === "saida" ? " dgf-cocard__badge--exit" : ""}${showImg ? " dgf-cocard__badge--img" : ""}`}
+      className={`dgf-cocard__badge${company.type === "saida" ? " dgf-cocard__badge--exit" : ""}${src ? " dgf-cocard__badge--img" : ""}`}
       aria-hidden="true"
     >
-      {showImg ? (
+      {src ? (
         <img
-          src={`https://www.google.com/s2/favicons?domain=${domain}&sz=128`}
+          key={src}
+          src={src}
           alt=""
           loading="lazy"
           decoding="async"
           referrerPolicy="no-referrer"
-          onError={() => setFailed(true)}
+          onError={() => setStep((s) => s + 1)}
         />
       ) : (
         company.ini
@@ -301,7 +315,7 @@ export default function DGFWebsite() {
               <h2 className="dgf-h2">Built for the long term.<br /><span className="serif" style={{ color: "var(--green)" }}>Aligned with founders.</span></h2>
               <p>Our founding team was investing in <strong>capital-efficient software businesses</strong> before DGF was founded, in 2001.</p>
               <p>Since then, the technology has changed completely. <strong>The discipline hasn't.</strong></p>
-              <p>Today we back the next generation of <strong>B2B platforms</strong>, where applied AI automates complex workflows and unlocks value that legacy software could not reach. Our advantage is pattern recognition: eight funds of knowing which problems compound and which companies endure.</p>
+              <p>Today we back the next generation of <strong>B2B platforms</strong>, where <strong>applied AI</strong> automates complex workflows and unlocks value that legacy software could not reach. Our advantage is <strong>pattern recognition</strong>: eight funds of knowing which problems compound and which companies endure.</p>
               <div className="dgf-sources" style={{ marginTop: 28 }}>
                 <a className="dgf-source" href={VIDEO_URL} target="_blank" rel="noreferrer">Watch our institutional video ↗</a>
                 <a className="dgf-source" href={LINKEDIN_URL} target="_blank" rel="noreferrer">LinkedIn ↗</a>
@@ -318,7 +332,7 @@ export default function DGFWebsite() {
                   </div>
                 </div>
                 <div className="dgf-card-stat">
-                  <div className="dgf-card-num">8<span className="accent">°</span></div>
+                  <div className="dgf-card-num">8<span className="accent">th</span></div>
                   <div className="dgf-card-label">Current fund</div>
                 </div>
                 <div className="dgf-card-stat">
