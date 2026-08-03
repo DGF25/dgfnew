@@ -5,6 +5,9 @@ import appCss from "../styles.css?url";
 const SITE_URL = "https://dgfnew.lovable.app";
 const OG_IMAGE = `${SITE_URL}/dgf-og-image.png`;
 
+/** Google Analytics 4 measurement ID. Empty string disables tracking entirely. */
+const GA_ID = "G-PV4KPCQY3C";
+
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -70,6 +73,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" },
+      // Warm up the GA connection so the tag never blocks first paint.
+      ...(GA_ID ? [{ rel: "preconnect", href: "https://www.googletagmanager.com" }] : []),
     ],
   }),
   shellComponent: RootShell,
@@ -78,10 +83,34 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   errorComponent: ErrorComponent,
 });
 
+/**
+ * Google Analytics 4 (gtag.js).
+ * Rendered server-side into <head> so it is present on every route (home and
+ * /cvm-disclosures). `async` keeps it off the critical rendering path.
+ * GA4's enhanced measurement tracks history-based navigation, so client-side
+ * route changes are counted without extra wiring.
+ */
+function Analytics() {
+  if (!GA_ID) return null;
+  return (
+    <>
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} />
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA_ID}');`,
+        }}
+      />
+    </>
+  );
+}
+
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <head><HeadContent /></head>
+      <head><HeadContent /><Analytics /></head>
       <body>{children}<Scripts /></body>
     </html>
   );
