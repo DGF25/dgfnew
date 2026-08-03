@@ -148,8 +148,11 @@ html, body { overflow-x: hidden; max-width: 100%; }
 .dgf-search input:focus { outline: none; border-color: var(--green-bright); box-shadow: 0 0 0 3px rgba(46,167,109,0.22); }
 .dgf-search__clear { position: absolute; right: 7px; top: 50%; transform: translateY(-50%); width: 30px; height: 30px; border-radius: 50%; border: 0; background: rgba(255,255,255,0.1); color: #fff; cursor: pointer; font-size: 16px; line-height: 1; font-family: inherit; }
 .dgf-results { font-size: 13px; color: var(--on-dark-3); margin: 0 0 18px 4px; }
-/* Equal-height rows: every card stretches to the tallest of the whole grid. */
-.dgf-cards { display: grid; grid-template-columns: 1fr; grid-auto-rows: 1fr; gap: 14px; content-visibility: auto; contain-intrinsic-size: auto 900px; }
+/* Equal-height rows: every card stretches to the tallest of the whole grid.
+ * NOTE: do NOT use `content-visibility: auto` here — it implies paint
+ * containment, which clips the top border of first-row cards when they lift on
+ * hover. The small perf win is not worth the visual glitch. */
+.dgf-cards { display: grid; grid-template-columns: 1fr; grid-auto-rows: 1fr; gap: 14px; }
 .dgf-cards > .dgf-reveal { height: 100%; }
 .dgf-cocard { background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--r-lg); padding: 24px 22px; min-height: 176px; height: 100%; display: flex; flex-direction: column; gap: 14px; text-align: left; transition: transform 0.3s var(--ease), border-color 0.3s var(--ease), box-shadow 0.3s var(--ease); }
 a.dgf-cocard { text-decoration: none; color: inherit; }
@@ -186,7 +189,8 @@ a.dgf-cocard { text-decoration: none; color: inherit; }
 .dgf-trackcard__suffix { font-size: clamp(28px, 2.5vw, 40px); font-weight: 500; color: rgba(255,255,255,0.7); letter-spacing: -0.02em; }
 
 /* ───────────────────────── team ───────────────────────── */
-.dgf-team { display: grid; grid-template-columns: 1fr; gap: 16px; content-visibility: auto; contain-intrinsic-size: auto 900px; }
+/* Same reasoning as .dgf-cards: no paint containment, cards lift on hover. */
+.dgf-team { display: grid; grid-template-columns: 1fr; gap: 16px; }
 .dgf-teamcard { display: block; padding: 28px 26px; border: 1px solid var(--border); border-radius: var(--r-lg); height: 100%; text-decoration: none; color: inherit; transition: border-color 0.25s var(--ease), background 0.25s var(--ease), transform 0.25s var(--ease); }
 .dgf-teamcard__top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
 .dgf-teamcard__badge { width: 48px; height: 48px; border-radius: 14px; background: linear-gradient(135deg, var(--green), var(--green-bright)); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 16px; color: #fff; letter-spacing: -0.02em; }
