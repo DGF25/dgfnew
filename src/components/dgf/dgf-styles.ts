@@ -149,7 +149,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
 .dgf-search__clear { position: absolute; right: 7px; top: 50%; transform: translateY(-50%); width: 30px; height: 30px; border-radius: 50%; border: 0; background: rgba(255,255,255,0.1); color: #fff; cursor: pointer; font-size: 16px; line-height: 1; font-family: inherit; }
 .dgf-results { font-size: 13px; color: var(--on-dark-3); margin: 0 0 18px 4px; }
 /* Equal-height rows: every card stretches to the tallest of the whole grid.
- * NOTE: do NOT use `content-visibility: auto` here — it implies paint
+ * NOTE: do NOT use content-visibility: auto here — it implies paint
  * containment, which clips the top border of first-row cards when they lift on
  * hover. The small perf win is not worth the visual glitch. */
 .dgf-cards { display: grid; grid-template-columns: 1fr; grid-auto-rows: 1fr; gap: 14px; }
