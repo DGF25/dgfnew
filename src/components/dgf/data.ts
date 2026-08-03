@@ -9,7 +9,14 @@ export interface Company {
   desc: string;
   type: CompanyStatus;
   highlight?: boolean;
+  /** Company URL — drives the card link and the auto-fetched logo. */
   site?: string;
+  /**
+   * Optional explicit logo URL. Use it when the favicon service has no icon
+   * for the domain (it silently returns a generic globe). Point it at the
+   * site's own icon, e.g. "https://speedbird.aero/icon.svg".
+   */
+  logo?: string;
 }
 
 export const companies: Company[] = [
@@ -25,7 +32,7 @@ export const companies: Company[] = [
   { id: 10, ini: "RD", name: "RD Station", desc: "Marketing automation, acquired by TOTVS", type: "saida", highlight: true, site: "https://www.rdstation.com" },
   { id: 11, ini: "DA", name: "Daitan", desc: "Software engineering, acquired by Coforge", type: "saida", highlight: true, site: "https://www.coforge.com" },
   { id: 12, ini: "MO", name: "Mosyle", desc: "Apple device management, realized via secondary sale", type: "saida", highlight: true, site: "https://mosyle.com" },
-  { id: 13, ini: "SB", name: "SpeedBird", desc: "Aerial logistics operation with autonomous drones", type: "ativo", site: "https://www.speedbird.aero" },
+  { id: 13, ini: "SB", name: "SpeedBird", desc: "Aerial logistics operation with autonomous drones", type: "ativo", site: "https://speedbird.aero", logo: "https://speedbird.aero/icon.svg" },
   { id: 14, ini: "F1", name: "Frota 162", desc: "Fleet management and maintenance software", type: "ativo", site: "https://www.frota162.com.br" },
   { id: 15, ini: "KY", name: "Kyte", desc: "Management system for small merchants", type: "ativo", site: "https://www.kyteapp.com" },
   { id: 16, ini: "TS", name: "Triple Session", desc: "Training and analytics for sales teams", type: "ativo", site: "https://triplesession.com" },
@@ -80,7 +87,7 @@ export interface Thesis { n: string; title: string; body: string; }
 export const thesis: Thesis[] = [
   { n: "01", title: "B2B Software", body: "We back B2B software architectures (from classic SaaS to AI-native workflows) that deliver structural high margins and undeniable value." },
   { n: "02", title: "Recurring Revenue", body: "Predictable models that let us invest in product and distribution with conviction." },
-  { n: "03", title: "Strong Unit Economics", body: "Premium unit economics (including LTV/CAC, NRR, and logo churn) that withstand rigorous scrutiny." },
+  { n: "03", title: "Strong Unit Economics", body: "Premium unit economics (including recurring revenue, LTV/CAC, NRR, and logo churn) that withstand rigorous scrutiny." },
   { n: "04", title: "Technical Teams", body: "Founders who understand the problem. Product and engineering as competitive advantage. Founders who leverage modern technology stacks and applied AI to build proprietary data moats." },
   { n: "05", title: "Global Potential", body: "We support teams built for the world stage. Geography is a starting point, not a constraint, enabling international competition from day one." },
   { n: "06", title: "Rigorous Process", body: "Proprietary methodology in pursuit of Investment Committee consensus. We lead US$1M–US$3M rounds with a board seat." },
@@ -116,7 +123,7 @@ export const team: TeamMember[] = [
   { ini: "JO", name: "João Orem", role: "Associate Partner", li: "https://www.linkedin.com/in/jo%C3%A3o-gabriel-coser-de-orem-2a152a15b/" },
   { ini: "LG", name: "Lucas Gouveia", role: "Compliance Director", li: "https://www.linkedin.com/in/lucas-gouveia-branco-6795311b9" },
   { ini: "MM", name: "Marcelo Merichello", role: "Analyst", li: "https://br.linkedin.com/in/marcelomerichello" },
-  { ini: "LP", name: "LP & ex-founder network", role: "DGF network", bio: "Institutional funds, family offices and tech ex-founders who form our support network and open doors for portfolio companies." },
+  { ini: "LP", name: "LP & founder network", role: "DGF network", bio: "Institutional funds, family offices and tech founders who form our support network and open doors for portfolio companies." },
 ];
 
 export interface NavLink { id: string; label: string; }
