@@ -292,7 +292,7 @@ export default function DGFWebsite() {
             <span className="dim">through</span> <span className="serif dgf-grad-text">cycles</span>
           </h1>
           <p className="dgf-hero__sub">
-            Three decades of venture capital, built on process, discipline and resilience.
+            Three decades of venture capital, built on process, discipline and resilience
           </p>
           <div className="dgf-actions">
             <button className="dgf-btn dgf-btn--primary" onClick={() => goTo("portfolio")}>View portfolio</button>
@@ -312,7 +312,7 @@ export default function DGFWebsite() {
           <div className="dgf-container dgf-about">
             <Reveal className="dgf-about__body">
               <p className="dgf-eyebrow">About the Firm</p>
-              <h2 className="dgf-h2">Built for the long term.<br /><span className="serif" style={{ color: "var(--green)" }}>Aligned with founders.</span></h2>
+              <h2 className="dgf-h2">Built for the long term<br /><span className="serif" style={{ color: "var(--green)" }}>Aligned with founders</span></h2>
               <p>Our founding team was investing in <strong>capital-efficient software businesses</strong> before DGF was founded, in 2001.</p>
               <p>Since then, the technology has changed completely. <strong>The discipline hasn't.</strong></p>
               <p>Today we back the next generation of <strong>B2B platforms</strong>, where <strong>applied AI</strong> automates complex workflows and unlocks value that legacy software could not reach. Our advantage is <strong>pattern recognition</strong>: eight funds of knowing which problems compound and which companies endure.</p>
@@ -348,7 +348,7 @@ export default function DGFWebsite() {
           <div className="dgf-container">
             <Reveal>
               <p className="dgf-eyebrow">Investment Thesis</p>
-              <h2 className="dgf-h2">What we <span className="serif" style={{ color: "var(--green)" }}>look for</span>.</h2>
+              <h2 className="dgf-h2">What we <span className="serif" style={{ color: "var(--green)" }}>look for</span></h2>
               <p className="dgf-lead" style={{ marginBottom: 48 }}>Capital-efficient business models with high gross margins, recurring revenue and founders who think about global scale from day one.</p>
             </Reveal>
             <div className="dgf-grid-3">
@@ -370,7 +370,7 @@ export default function DGFWebsite() {
             <div className="dgf-portfolio__head">
               <Reveal>
                 <p className="dgf-eyebrow dgf-eyebrow--light">Portfolio</p>
-                <h2 className="dgf-h2">Companies we <span className="serif" style={{ color: "var(--green-accent)" }}>believe in</span>.</h2>
+                <h2 className="dgf-h2">Companies we <span className="serif" style={{ color: "var(--green-accent)" }}>believe in</span></h2>
                 <p className="dgf-lead">Concentrated portfolio. 10 to 14 companies per fund.</p>
               </Reveal>
               <div className="dgf-filters" role="group" aria-label="Filter portfolio">
@@ -450,7 +450,7 @@ export default function DGFWebsite() {
           <div className="dgf-container">
             <Reveal>
               <p className="dgf-eyebrow">Track Record</p>
-              <h2 className="dgf-h2">Three decades of consistency<br />and <span className="serif" style={{ color: "var(--green)" }}>discipline</span>.</h2>
+              <h2 className="dgf-h2">Three decades of consistency<br />and <span className="serif" style={{ color: "var(--green)" }}>discipline</span></h2>
               <p className="dgf-lead" style={{ marginBottom: 24 }}>Performance validated by the market. Discipline that delivers leadership-level returns.</p>
               <p className="dgf-lead" style={{ marginBottom: 20 }}>We combine historical consistency and capital efficiency to position our funds among the top of the global venture capital industry, with a proven track record of top-quartile funds.</p>
               <p className="dgf-lead dgf-callout" style={{ marginBottom: 48 }}>We have navigated <strong>economic cycles</strong>, delivering <strong>liquidity and solid returns</strong> to our investors, without ever losing <strong>alignment with founders</strong>.</p>
@@ -482,7 +482,7 @@ export default function DGFWebsite() {
           <div className="dgf-container">
             <Reveal>
               <p className="dgf-eyebrow">Team</p>
-              <h2 className="dgf-h2">People who <span className="serif" style={{ color: "var(--green)" }}>build</span> alongside founders.</h2>
+              <h2 className="dgf-h2">People who <span className="serif" style={{ color: "var(--green)" }}>build</span> alongside founders</h2>
               <p className="dgf-lead" style={{ marginBottom: 48 }}>More than capital, active board presence: we support founders from traction to leadership, building resilience in the most challenging moments.</p>
             </Reveal>
             <div className="dgf-team">
