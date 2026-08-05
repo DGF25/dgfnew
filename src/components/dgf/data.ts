@@ -86,8 +86,8 @@ export const companies: Company[] = [
 export interface Thesis { n: string; title: string; body: string; }
 export const thesis: Thesis[] = [
   { n: "01", title: "B2B Software", body: "We back B2B software architectures (from classic SaaS to AI-native workflows) that deliver structural high margins and undeniable value." },
-  { n: "02", title: "Recurring Revenue", body: "Predictable models that let us invest in product and distribution with conviction." },
-  { n: "03", title: "Strong Unit Economics", body: "Premium unit economics (including recurring revenue, LTV/CAC, NRR, and logo churn) that withstand rigorous scrutiny." },
+  { n: "02", title: "Partnership Mindset", body: "Founders who want a partner, not just a wire transfer. We work the hard problems alongside them — and stay closest when the quarter goes sideways." },
+  { n: "03", title: "Strong Unit Economics", body: "Recurring revenue predictable enough to fund product and distribution with conviction, backed by unit economics (LTV/CAC, NRR, logo churn) that hold up under real scrutiny." },
   { n: "04", title: "Technical Teams", body: "Founders who understand the problem. Product and engineering as competitive advantage. Founders who leverage modern technology stacks and applied AI to build proprietary data moats." },
   { n: "05", title: "Global Potential", body: "We support teams built for the world stage. Geography is a starting point, not a constraint, enabling international competition from day one." },
   { n: "06", title: "Rigorous Process", body: "Proprietary methodology in pursuit of Investment Committee consensus. We lead US$1M–US$3M rounds with a board seat." },
