@@ -33,7 +33,7 @@ export const dgfStyles = `
   --shadow-card: 0 8px 32px rgba(29,118,72,0.08); --shadow-lift: 0 14px 40px rgba(0,0,0,0.12);
   --header-h: 60px;
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: 'Poppins', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
   color: var(--text); background: #fff; overflow-x: hidden;
 }
@@ -230,7 +230,7 @@ a.dgf-cocard { text-decoration: none; color: inherit; }
 .dgf-cvm { max-width: 900px; margin: 0 auto; padding: 120px 20px 80px; }
 .dgf-cvm h1 { font-size: var(--fs-h2); font-weight: 500; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 24px; color: var(--dark); }
 .dgf-cvm h2 { font-size: 1.5rem; font-weight: 500; letter-spacing: -0.02em; margin: 48px 0 16px; color: var(--dark); }
-.dgf-cvm p { font-size: var(--fs-body); color: var(--text-soft); line-height: 1.75; margin-bottom: 16px; }
+.dgf-cvm p { font-size: var(--fs-body); color: var(--text-soft); line-height: 1.75; margin-bottom: 16px; text-align: justify; hyphens: auto; }
 .dgf-cvm__back { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--green); text-decoration: none; margin-bottom: 24px; padding: 6px 0; }
 .dgf-cvm__back:hover { color: var(--green-bright); }
 .dgf-cvm__lang { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); background: rgba(29,118,72,0.08); padding: 4px 10px; border-radius: var(--r-pill); margin-bottom: 24px; }
