@@ -2,20 +2,31 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Logo } from "@/components/dgf/Logo";
 import { dgfStyles } from "@/components/dgf/dgf-styles";
 
+/**
+ * Documentos regulatórios (RCVM 21/21).
+ *
+ * Os PDFs são servidos por este próprio site, de `public/cvm/`. Antes ficavam
+ * hospedados no Wix (`dgf.com.br/_files/ugd/…`); foram migrados para cá em
+ * ago/2026 porque aqueles links morreriam no instante em que o DNS de
+ * dgf.com.br deixasse de apontar para o Wix.
+ *
+ * Para trocar um documento: substitua o arquivo em `public/cvm/` mantendo o
+ * mesmo nome. Nenhuma alteração de código é necessária.
+ */
 const DOCS: { label: string; url: string }[] = [
-  { label: "Formulário de Referência", url: "https://www.dgf.com.br/_files/ugd/fc6eac_c2d32273234944d09c177a5e2e7e1d80.pdf" },
-  { label: "Código de Conduta e Ética", url: "https://www.dgf.com.br/_files/ugd/fc6eac_9ff9acedb22040e3a9570523581a1395.pdf" },
-  { label: "Política de Gestão de Riscos", url: "https://www.dgf.com.br/_files/ugd/fc6eac_4bd4f4d567a141ba9898e2d244b961f6.pdf" },
-  { label: "Manual de Controles Internos e Compliance", url: "https://www.dgf.com.br/_files/ugd/fc6eac_7da29ce590c44d13b71f75bef37cb6f9.pdf" },
-  { label: "Política de Rateio", url: "https://www.dgf.com.br/_files/ugd/fc6eac_41d84111cf164bea999b23a3efc42fad.pdf" },
-  { label: "Manual de Precificação", url: "https://www.dgf.com.br/_files/ugd/fc6eac_0b4a94c27a4440d8b559bbde537fa332.pdf" },
-  { label: "Política de Prevenção a Lavagem de Dinheiro", url: "https://www.dgf.com.br/_files/ugd/fc6eac_e324b00fb7654fc9b0b86b382ab131f5.pdf" },
-  { label: "Política de Compra e Venda de Valores Mobiliários", url: "https://www.dgf.com.br/_files/ugd/fc6eac_7a2427a007734912ab9b4c332955c3f4.pdf" },
-  { label: "Política de Segurança e Sigilo de Informação, Privacidade de Dados e Segurança Cibernética", url: "https://www.dgf.com.br/_files/ugd/fc6eac_15ab823591e6476b9d7a77dd85a2efc9.pdf" },
-  { label: "Política de Emissões de Carbono e ESG", url: "https://www.dgf.com.br/_files/ugd/fc6eac_eb5d88d47db041eb9844139df8651f86.pdf" },
-  { label: "Política de KYC e Suitability", url: "https://www.dgf.com.br/_files/ugd/fc6eac_115629ed3cf045218954019274450f5d.pdf" },
-  { label: "Política de Certificação", url: "https://www.dgf.com.br/_files/ugd/fc6eac_17bcc47d17fb42e8ab2ba9006c9e4d30.pdf" },
-  { label: "Política de Contratação de Terceiro", url: "https://www.dgf.com.br/_files/ugd/fc6eac_d0b25b9e9d354ccdbecc41ed96dbe971.pdf" },
+  { label: "Formulário de Referência", url: "/cvm/formulario-de-referencia.pdf" },
+  { label: "Código de Conduta e Ética", url: "/cvm/codigo-de-conduta-e-etica.pdf" },
+  { label: "Política de Gestão de Riscos", url: "/cvm/politica-de-gestao-de-riscos.pdf" },
+  { label: "Manual de Controles Internos e Compliance", url: "/cvm/manual-de-controles-internos-e-compliance.pdf" },
+  { label: "Política de Rateio", url: "/cvm/politica-de-rateio.pdf" },
+  { label: "Manual de Precificação", url: "/cvm/manual-de-precificacao.pdf" },
+  { label: "Política de Prevenção a Lavagem de Dinheiro", url: "/cvm/politica-de-prevencao-a-lavagem-de-dinheiro.pdf" },
+  { label: "Política de Compra e Venda de Valores Mobiliários", url: "/cvm/politica-de-compra-e-venda-de-valores-mobiliarios.pdf" },
+  { label: "Política de Segurança e Sigilo de Informação, Privacidade de Dados e Segurança Cibernética", url: "/cvm/politica-de-seguranca-e-sigilo-de-informacao.pdf" },
+  { label: "Política de Emissões de Carbono e ESG", url: "/cvm/politica-de-emissoes-de-carbono-e-esg.pdf" },
+  { label: "Política de KYC e Suitability", url: "/cvm/politica-de-kyc-e-suitability.pdf" },
+  { label: "Política de Certificação", url: "/cvm/politica-de-certificacao.pdf" },
+  { label: "Política de Contratação de Terceiro", url: "/cvm/politica-de-contratacao-de-terceiro.pdf" },
 ];
 
 export const Route = createFileRoute("/cvm-disclosures")({
