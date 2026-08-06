@@ -43,6 +43,7 @@ import {
 const VIDEO_URL = "https://youtu.be/4MkpwqORuBY";
 const LINKEDIN_URL = "https://br.linkedin.com/company/dgf-investimentos";
 const CONTACT_EMAIL = "startups@dgf.com.br";
+const IR_EMAIL = "investors@dgf.com.br";
 const STUDY_URL = "https://docsend.com/view/s/4q4d4sushrypmk9n";
 
 /* Sections have `scroll-margin-top` in CSS, so native smooth scrolling lands
@@ -521,6 +522,7 @@ export default function DGFWebsite() {
               <button className="dgf-btn dgf-btn--ghost" onClick={() => goTo("track")}>View track record →</button>
             </div>
             <p className="dgf-contact__email">or write to <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a></p>
+            <p className="dgf-contact__email" style={{ marginTop: 8 }}>For investor relations inquiries, contact <a href={`mailto:${IR_EMAIL}`}>{IR_EMAIL}</a></p>
           </div>
         </section>
       </main>
