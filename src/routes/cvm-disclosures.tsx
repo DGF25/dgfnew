@@ -45,7 +45,7 @@ function CvmDisclosures() {
       </nav>
 
       <main>
-        <div className="dgf-cvm">
+        <div className="dgf-cvm" lang="pt-BR">
           <Link to="/" className="dgf-cvm__back">← Voltar ao site</Link>
           <span className="dgf-cvm__lang">PT · Página regulatória</span>
           <h1>Informações CVM</h1>
