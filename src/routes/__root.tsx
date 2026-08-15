@@ -2,7 +2,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Outlet, Link, createRootRouteWithContext, useRouter, HeadContent, Scripts } from "@tanstack/react-router";
 import appCss from "../styles.css?url";
 
-const SITE_URL = "https://dgfnew.lovable.app";
+/** Canonical origin of the site. Drives <link rel="canonical">, og:url and the
+ *  absolute URL of the social share image. Must match the domain users actually
+ *  reach — a stale value here silently breaks link previews and SEO. */
+const SITE_URL = "https://dgf.com.br";
 const OG_IMAGE = `${SITE_URL}/dgf-og-image.png`;
 
 /** Google Analytics 4 measurement ID. Empty string disables tracking entirely. */
