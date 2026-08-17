@@ -129,13 +129,10 @@ html, body { overflow-x: hidden; max-width: 100%; }
 
 /* ───────────────────────── thesis ───────────────────────── */
 .dgf-grid-3 { display: grid; grid-template-columns: 1fr; gap: 14px; }
-/* NOTE: thesis sits on a 2-column grid at desktop, not 3 (see breakpoints).
- * Six items across two wide columns read better than six narrow ones — the
- * body copy gets a comfortable measure instead of wrapping every few words. */
-.dgf-thesis { padding: 30px 28px; background: #fff; border-radius: var(--r-lg); border: 1px solid var(--border); height: 100%; transition: transform 0.25s var(--ease), background 0.25s var(--ease), box-shadow 0.25s var(--ease); }
+.dgf-thesis { padding: 28px 24px; background: #fff; border-radius: var(--r-lg); border: 1px solid var(--border); height: 100%; transition: transform 0.25s var(--ease), background 0.25s var(--ease), box-shadow 0.25s var(--ease); }
 .dgf-thesis__n { font-size: 11.5px; font-weight: 600; color: var(--green); letter-spacing: 0.1em; margin-bottom: 14px; }
 .dgf-thesis h3 { font-size: 16.5px; font-weight: 500; color: var(--dark); margin-bottom: 9px; letter-spacing: -0.01em; }
-.dgf-thesis p { font-size: 13.5px; color: var(--text-soft); line-height: 1.7; max-width: 62ch; }
+.dgf-thesis p { font-size: 13.5px; color: var(--text-soft); line-height: 1.7; }
 
 /* ───────────────────────── portfolio ───────────────────────── */
 .dgf-portfolio__head { display: flex; flex-direction: column; gap: 20px; align-items: flex-start; margin-bottom: 24px; }
@@ -179,20 +176,23 @@ a.dgf-cocard { text-decoration: none; color: inherit; }
   position: relative; overflow: hidden;
   background: linear-gradient(168deg, var(--dark) 0%, var(--dark-2) 100%);
   border-radius: var(--r-xl);
-  padding: 34px 26px;
+  padding: 26px 22px;
   color: var(--on-dark);
 }
 .dgf-trackband__blob { position: absolute; top: -70px; right: -70px; width: 260px; height: 260px; background: radial-gradient(circle, var(--green), transparent 70%); opacity: 0.32; filter: blur(46px); pointer-events: none; }
-.dgf-trackband > * { position: relative; }
+/* Excludes the blob on purpose: it is absolutely positioned, and a bare
+ * `> *` rule has the same specificity as its own rule but comes later, so it
+ * would win and turn the blob into a 260px block of empty space at the top. */
+.dgf-trackband > *:not(.dgf-trackband__blob) { position: relative; }
 .dgf-trackband .dgf-eyebrow { color: var(--green-accent); }
 .dgf-trackband .dgf-h2 { color: #fff; }
 .dgf-trackband .dgf-lead { color: var(--on-dark-2); }
 /* Callout inside the band: a light rule on dark, not a white card. */
 .dgf-trackband .dgf-callout { background: rgba(255,255,255,0.04); border-left: 2px solid var(--green-accent); box-shadow: none; }
 .dgf-trackband .dgf-callout strong { color: var(--on-dark); }
-.dgf-trackband__stats { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 20px; margin-top: 40px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.12); }
-.dgf-trackstat__label { font-size: 11.5px; font-weight: 600; letter-spacing: 0.11em; text-transform: uppercase; color: var(--green-accent); margin-bottom: 8px; }
-.dgf-trackstat__value { display: flex; align-items: baseline; gap: 2px; }
+.dgf-trackband__stats { display: grid; grid-template-columns: 1fr 1fr; gap: 26px 20px; margin-top: 30px; padding-top: 26px; border-top: 1px solid rgba(255,255,255,0.12); text-align: center; }
+.dgf-trackstat__label { font-size: 11.5px; font-weight: 600; letter-spacing: 0.11em; text-transform: uppercase; color: var(--green-accent); margin-bottom: 10px; }
+.dgf-trackstat__value { display: flex; align-items: baseline; justify-content: center; gap: 2px; }
 .dgf-trackstat__num { font-size: clamp(34px, 3.4vw, 52px); font-weight: 600; letter-spacing: -0.04em; line-height: 1; color: #fff; }
 /* Long textual values ("Top Quartile") scale down so they never overflow. */
 .dgf-trackstat__num--text { font-size: clamp(19px, 1.8vw, 27px); line-height: 1.2; letter-spacing: -0.02em; }
@@ -290,14 +290,14 @@ a.dgf-cocard { text-decoration: none; color: inherit; }
   .dgf-grid-3 { grid-template-columns: 1fr 1fr; }
   .dgf-team { grid-template-columns: 1fr 1fr; }
   .dgf-portfolio__head { flex-direction: row; justify-content: space-between; align-items: flex-end; }
-  .dgf-trackband { padding: 48px 44px; }
+  .dgf-trackband { padding: 38px 46px; }
   .dgf-trackband__stats { grid-template-columns: repeat(2, 1fr); }
   .dgf-cvm__docs { grid-template-columns: 1fr 1fr; }
   .dgf-totop { right: 28px; bottom: 28px; }
 }
 @media (min-width: 1024px) {
   .dgf-about { grid-template-columns: 1.1fr 0.9fr; gap: 80px; }
-  /* Thesis stays at 2 columns on desktop on purpose — wider boxes, better measure. */
+  .dgf-grid-3 { grid-template-columns: repeat(3, 1fr); }
   .dgf-team { grid-template-columns: repeat(3, 1fr); }
   .dgf-cards { grid-template-columns: repeat(3, 1fr); }
   .dgf-trackband__stats { grid-template-columns: repeat(4, 1fr); }
