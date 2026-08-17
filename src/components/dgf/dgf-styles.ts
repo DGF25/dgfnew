@@ -71,7 +71,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
 .dgf-navlink { font-size: 13.5px; font-weight: 500; color: var(--on-dark-2); background: none; border: 0; cursor: pointer; padding: 10px 15px; border-radius: 8px; transition: color 0.2s var(--ease); font-family: inherit; }
 .dgf-navlink--active { color: #fff; }
 .dgf-navlink--active::after { content: ""; display: block; height: 2px; width: 16px; margin: 3px auto 0; background: var(--green-accent); border-radius: 2px; }
-.dgf-cta { display: inline-block; background: var(--green); color: #fff; padding: 10px 20px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; border: 0; font-family: inherit; text-decoration: none; transition: background 0.2s var(--ease), transform 0.2s var(--ease), box-shadow 0.2s var(--ease); }
+.dgf-cta { display: inline-block; background: var(--green); color: #fff; padding: 10px 20px; border-radius: var(--r-pill); font-size: 13px; font-weight: 500; cursor: pointer; border: 0; font-family: inherit; text-decoration: none; transition: background 0.2s var(--ease), transform 0.2s var(--ease), box-shadow 0.2s var(--ease); }
 .dgf-nav__cta { display: none; margin-left: 12px; }
 /* 44px tap target on the burger. */
 .dgf-burger { display: inline-flex; flex-direction: column; justify-content: center; gap: 5px; padding: 12px; margin: -4px; background: none; border: 0; cursor: pointer; }
@@ -104,7 +104,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
 .dgf-hstat__label { font-size: 11.5px; color: var(--on-dark-3); letter-spacing: 0.08em; text-transform: uppercase; }
 
 /* ───────────────────────── shared UI ───────────────────────── */
-.dgf-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 26px; border-radius: var(--r-sm); font-size: 14px; font-weight: 500; cursor: pointer; border: 1px solid transparent; font-family: inherit; text-decoration: none; transition: background 0.25s var(--ease), transform 0.25s var(--ease), box-shadow 0.25s var(--ease), border-color 0.25s var(--ease); }
+.dgf-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 28px; border-radius: var(--r-pill); font-size: 14px; font-weight: 500; cursor: pointer; border: 1px solid transparent; font-family: inherit; text-decoration: none; transition: background 0.25s var(--ease), transform 0.25s var(--ease), box-shadow 0.25s var(--ease), border-color 0.25s var(--ease); }
 .dgf-btn--primary { background: var(--green); color: #fff; }
 .dgf-btn--ghost { background: rgba(255,255,255,0.04); color: var(--on-dark); border-color: rgba(255,255,255,0.15); }
 .dgf-sources { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 14px; }
@@ -129,10 +129,13 @@ html, body { overflow-x: hidden; max-width: 100%; }
 
 /* ───────────────────────── thesis ───────────────────────── */
 .dgf-grid-3 { display: grid; grid-template-columns: 1fr; gap: 14px; }
-.dgf-thesis { padding: 28px 22px; background: #fff; border-radius: var(--r-lg); border: 1px solid var(--border); height: 100%; transition: transform 0.25s var(--ease), background 0.25s var(--ease), box-shadow 0.25s var(--ease); }
-.dgf-thesis__n { font-size: 12px; font-weight: 600; color: var(--green); letter-spacing: 0.1em; margin-bottom: 16px; }
-.dgf-thesis h3 { font-size: var(--fs-h3); font-weight: 500; color: var(--dark); margin-bottom: 10px; letter-spacing: -0.01em; }
-.dgf-thesis p { font-size: 14px; color: var(--text-soft); line-height: 1.65; }
+/* NOTE: thesis sits on a 2-column grid at desktop, not 3 (see breakpoints).
+ * Six items across two wide columns read better than six narrow ones — the
+ * body copy gets a comfortable measure instead of wrapping every few words. */
+.dgf-thesis { padding: 30px 28px; background: #fff; border-radius: var(--r-lg); border: 1px solid var(--border); height: 100%; transition: transform 0.25s var(--ease), background 0.25s var(--ease), box-shadow 0.25s var(--ease); }
+.dgf-thesis__n { font-size: 11.5px; font-weight: 600; color: var(--green); letter-spacing: 0.1em; margin-bottom: 14px; }
+.dgf-thesis h3 { font-size: 16.5px; font-weight: 500; color: var(--dark); margin-bottom: 9px; letter-spacing: -0.01em; }
+.dgf-thesis p { font-size: 13.5px; color: var(--text-soft); line-height: 1.7; max-width: 62ch; }
 
 /* ───────────────────────── portfolio ───────────────────────── */
 .dgf-portfolio__head { display: flex; flex-direction: column; gap: 20px; align-items: flex-start; margin-bottom: 24px; }
@@ -172,32 +175,43 @@ a.dgf-cocard { text-decoration: none; color: inherit; }
 .dgf-empty { grid-column: 1 / -1; text-align: center; padding: 48px 20px; color: var(--on-dark-3); font-size: 14px; border: 1px dashed rgba(255,255,255,0.12); border-radius: var(--r-lg); }
 
 /* ───────────────────────── track record ───────────────────────── */
-.dgf-trackgrid { display: grid; grid-template-columns: 1fr; gap: 12px; }
-.dgf-trackcard { border-radius: var(--r-xl); padding: 36px 28px; color: #fff; position: relative; overflow: hidden; min-height: 200px; display: flex; flex-direction: column; justify-content: space-between; }
-.dgf-trackcard--dark { background: var(--dark); }
-.dgf-trackcard--light { background: var(--green); }
-.dgf-trackcard__blob { position: absolute; top: -30px; right: -30px; width: 140px; height: 140px; pointer-events: none; }
-.dgf-trackcard--dark .dgf-trackcard__blob { background: radial-gradient(circle, var(--green), transparent 70%); opacity: 0.35; filter: blur(30px); }
-.dgf-trackcard--light .dgf-trackcard__blob { background: rgba(255,255,255,0.08); border-radius: 50%; }
-.dgf-trackcard__label { position: relative; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px; }
-.dgf-trackcard--dark .dgf-trackcard__label { color: var(--green-accent); }
-.dgf-trackcard--light .dgf-trackcard__label { color: rgba(255,255,255,0.85); }
-.dgf-trackcard__value { position: relative; display: flex; align-items: baseline; gap: 2px; }
-.dgf-trackcard__num { font-size: clamp(48px, 4.5vw, 72px); font-weight: 600; letter-spacing: -0.04em; line-height: 1; color: #fff; }
+.dgf-trackband {
+  position: relative; overflow: hidden;
+  background: linear-gradient(168deg, var(--dark) 0%, var(--dark-2) 100%);
+  border-radius: var(--r-xl);
+  padding: 34px 26px;
+  color: var(--on-dark);
+}
+.dgf-trackband__blob { position: absolute; top: -70px; right: -70px; width: 260px; height: 260px; background: radial-gradient(circle, var(--green), transparent 70%); opacity: 0.32; filter: blur(46px); pointer-events: none; }
+.dgf-trackband > * { position: relative; }
+.dgf-trackband .dgf-eyebrow { color: var(--green-accent); }
+.dgf-trackband .dgf-h2 { color: #fff; }
+.dgf-trackband .dgf-lead { color: var(--on-dark-2); }
+/* Callout inside the band: a light rule on dark, not a white card. */
+.dgf-trackband .dgf-callout { background: rgba(255,255,255,0.04); border-left: 2px solid var(--green-accent); box-shadow: none; }
+.dgf-trackband .dgf-callout strong { color: var(--on-dark); }
+.dgf-trackband__stats { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 20px; margin-top: 40px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.12); }
+.dgf-trackstat__label { font-size: 11.5px; font-weight: 600; letter-spacing: 0.11em; text-transform: uppercase; color: var(--green-accent); margin-bottom: 8px; }
+.dgf-trackstat__value { display: flex; align-items: baseline; gap: 2px; }
+.dgf-trackstat__num { font-size: clamp(34px, 3.4vw, 52px); font-weight: 600; letter-spacing: -0.04em; line-height: 1; color: #fff; }
 /* Long textual values ("Top Quartile") scale down so they never overflow. */
-.dgf-trackcard__num--text { font-size: clamp(24px, 2.4vw, 38px); line-height: 1.15; letter-spacing: -0.02em; }
-.dgf-trackcard__suffix { font-size: clamp(28px, 2.5vw, 40px); font-weight: 500; color: rgba(255,255,255,0.7); letter-spacing: -0.02em; }
+.dgf-trackstat__num--text { font-size: clamp(19px, 1.8vw, 27px); line-height: 1.2; letter-spacing: -0.02em; }
+.dgf-trackstat__suffix { font-size: clamp(20px, 2vw, 30px); font-weight: 500; color: rgba(255,255,255,0.66); letter-spacing: -0.02em; }
 
 /* ───────────────────────── team ───────────────────────── */
 /* Same reasoning as .dgf-cards: no paint containment, cards lift on hover. */
 .dgf-team { display: grid; grid-template-columns: 1fr; gap: 16px; }
 .dgf-teamcard { display: block; padding: 28px 26px; border: 1px solid var(--border); border-radius: var(--r-lg); height: 100%; text-decoration: none; color: inherit; transition: border-color 0.25s var(--ease), background 0.25s var(--ease), transform 0.25s var(--ease); }
 .dgf-teamcard__top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
-.dgf-teamcard__badge { width: 48px; height: 48px; border-radius: 14px; background: linear-gradient(135deg, var(--green), var(--green-bright)); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 16px; color: #fff; letter-spacing: -0.02em; }
+/* Lower-contrast team cards. The badges used to be saturated green gradients
+ * with white initials, which made an eleven-card grid read as a wall of green
+ * and pulled attention away from the names. Now a soft tint with green
+ * initials: the person is the subject, the badge is support. */
+.dgf-teamcard__badge { width: 48px; height: 48px; border-radius: 14px; background: linear-gradient(140deg, rgba(60,171,110,0.17), rgba(29,118,72,0.09)); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 15px; color: var(--green); letter-spacing: -0.01em; }
 .dgf-teamcard__name { font-size: 17px; font-weight: 500; color: var(--dark); margin-bottom: 5px; letter-spacing: -0.01em; }
-.dgf-teamcard__role { font-size: 12.5px; color: var(--green); font-weight: 500; }
+.dgf-teamcard__role { font-size: 12.5px; color: var(--text-muted); font-weight: 500; }
 .dgf-teamcard__bio { font-size: 13.5px; color: var(--text-soft); line-height: 1.65; margin-top: 12px; }
-.dgf-teamcard__li { color: var(--green); opacity: 0.7; transition: opacity 0.2s var(--ease); }
+.dgf-teamcard__li { color: var(--text-muted); opacity: 0.45; transition: opacity 0.2s var(--ease), color 0.2s var(--ease); }
 
 /* ───────────────────────── contact ───────────────────────── */
 .dgf-contact { text-align: center; }
@@ -249,8 +263,10 @@ a.dgf-cocard { text-decoration: none; color: inherit; }
   .dgf-thesis:hover { background: var(--paper); transform: translateY(-2px); box-shadow: var(--shadow-card); }
   .dgf-cocard:hover { border-color: var(--green-bright); transform: translateY(-3px); box-shadow: 0 8px 32px rgba(29,118,72,0.18); }
   .dgf-cocard:hover .dgf-cocard__badge--img img { filter: none; }
-  a.dgf-teamcard:hover { border-color: var(--green-bright); background: var(--paper); transform: translateY(-2px); }
-  a.dgf-teamcard:hover .dgf-teamcard__li { opacity: 1; }
+  /* Hover is where the green is allowed back in — as a reward for intent,
+   * not as the resting state of eleven cards at once. */
+  a.dgf-teamcard:hover { border-color: rgba(46,167,109,0.45); background: var(--paper); transform: translateY(-2px); }
+  a.dgf-teamcard:hover .dgf-teamcard__li { opacity: 1; color: var(--green); }
   .dgf-cvm__doc:hover { border-color: var(--green); transform: translateY(-1px); box-shadow: var(--shadow-card); }
   .dgf-totop:hover { background: var(--green-bright); }
 }
@@ -274,16 +290,17 @@ a.dgf-cocard { text-decoration: none; color: inherit; }
   .dgf-grid-3 { grid-template-columns: 1fr 1fr; }
   .dgf-team { grid-template-columns: 1fr 1fr; }
   .dgf-portfolio__head { flex-direction: row; justify-content: space-between; align-items: flex-end; }
-  .dgf-trackgrid { grid-template-columns: repeat(2, 1fr); }
+  .dgf-trackband { padding: 48px 44px; }
+  .dgf-trackband__stats { grid-template-columns: repeat(2, 1fr); }
   .dgf-cvm__docs { grid-template-columns: 1fr 1fr; }
   .dgf-totop { right: 28px; bottom: 28px; }
 }
 @media (min-width: 1024px) {
   .dgf-about { grid-template-columns: 1.1fr 0.9fr; gap: 80px; }
-  .dgf-grid-3 { grid-template-columns: repeat(3, 1fr); }
+  /* Thesis stays at 2 columns on desktop on purpose — wider boxes, better measure. */
   .dgf-team { grid-template-columns: repeat(3, 1fr); }
   .dgf-cards { grid-template-columns: repeat(3, 1fr); }
-  .dgf-trackgrid { grid-template-columns: repeat(4, 1fr); }
+  .dgf-trackband__stats { grid-template-columns: repeat(4, 1fr); }
 }
 
 /* ───────────────────────── reduced motion ───────────────────────── */
