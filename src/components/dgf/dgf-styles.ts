@@ -181,7 +181,7 @@ a.dgf-cocard { text-decoration: none; color: inherit; }
 }
 .dgf-trackband__blob { position: absolute; top: -70px; right: -70px; width: 260px; height: 260px; background: radial-gradient(circle, var(--green), transparent 70%); opacity: 0.32; filter: blur(46px); pointer-events: none; }
 /* Excludes the blob on purpose: it is absolutely positioned, and a bare
- * `> *` rule has the same specificity as its own rule but comes later, so it
+ * a bare "> *" rule has the same specificity as its own rule but comes later,
  * would win and turn the blob into a 260px block of empty space at the top. */
 .dgf-trackband > *:not(.dgf-trackband__blob) { position: relative; }
 .dgf-trackband .dgf-eyebrow { color: var(--green-accent); }
