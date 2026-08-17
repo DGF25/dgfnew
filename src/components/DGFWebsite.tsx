@@ -449,26 +449,29 @@ export default function DGFWebsite() {
 
         <section id="track" className="dgf-section dgf-section--paper">
           <div className="dgf-container">
+            {/* One single band: copy and numbers share one surface. The four
+              * separate cards that lived here before split the argument in two
+              * and let the green ones outshout the sentence they supported. */}
             <Reveal>
-              <p className="dgf-eyebrow">Track Record</p>
-              <h2 className="dgf-h2">Three decades of consistency<br />and <span className="serif" style={{ color: "var(--green)" }}>discipline</span></h2>
-              <p className="dgf-lead" style={{ marginBottom: 24 }}>Performance validated by the market. Discipline that delivers leadership-level returns.</p>
-              <p className="dgf-lead" style={{ marginBottom: 20 }}>We combine historical consistency and capital efficiency to position our funds among the top of the global venture capital industry, with a proven track record of top-quartile funds.</p>
-              <p className="dgf-lead dgf-callout" style={{ marginBottom: 48 }}>We have navigated <strong>economic cycles</strong>, delivering <strong>liquidity and solid returns</strong> to our investors, without ever losing <strong>alignment with founders</strong>.</p>
-            </Reveal>
-            <Reveal delay={100}>
-              <div className="dgf-trackgrid">
-                {trackStats.map((s) => (
-                  <div key={s.label} className={`dgf-trackcard dgf-trackcard--${s.variant ?? "dark"}`}>
-                    <div className="dgf-trackcard__blob" aria-hidden="true" />
-                    <div className="dgf-trackcard__label">{s.label}</div>
-                    <div className="dgf-trackcard__value">
-                      {/* Long text values (e.g. "Top Quartile") get a smaller type scale so they never overflow on mobile. */}
-                      <span className={`dgf-trackcard__num${s.value.length > 4 ? " dgf-trackcard__num--text" : ""}`}>{s.value}</span>
-                      {s.suffix && <span className="dgf-trackcard__suffix">{s.suffix}</span>}
+              <div className="dgf-trackband">
+                <div className="dgf-trackband__blob" aria-hidden="true" />
+                <p className="dgf-eyebrow">Track Record</p>
+                <h2 className="dgf-h2">Three decades of consistency<br />and <span className="serif" style={{ color: "var(--green-accent)" }}>discipline</span></h2>
+                <p className="dgf-lead" style={{ marginTop: 20, marginBottom: 20 }}>Performance validated by the market. Discipline that delivers leadership-level returns.</p>
+                <p className="dgf-lead" style={{ marginBottom: 20 }}>We combine historical consistency and capital efficiency to position our funds among the top of the global venture capital industry, with a proven track record of top-quartile funds.</p>
+                <p className="dgf-lead dgf-callout">We have navigated <strong>economic cycles</strong>, delivering <strong>liquidity and solid returns</strong> to our investors, without ever losing <strong>alignment with founders</strong>.</p>
+                <div className="dgf-trackband__stats">
+                  {trackStats.map((s) => (
+                    <div key={s.label}>
+                      <div className="dgf-trackstat__label">{s.label}</div>
+                      <div className="dgf-trackstat__value">
+                        {/* Long text values (e.g. "Top Quartile") get a smaller type scale so they never overflow on mobile. */}
+                        <span className={`dgf-trackstat__num${s.value.length > 4 ? " dgf-trackstat__num--text" : ""}`}>{s.value}</span>
+                        {s.suffix && <span className="dgf-trackstat__suffix">{s.suffix}</span>}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </Reveal>
             <Reveal delay={200}>
