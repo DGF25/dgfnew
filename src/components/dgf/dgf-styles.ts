@@ -158,8 +158,12 @@ html, body { overflow-x: hidden; max-width: 100%; }
 a.dgf-cocard { text-decoration: none; color: inherit; }
 .dgf-cocard__badge { width: 46px; height: 46px; border-radius: var(--r-md); display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px; color: #fff; letter-spacing: -0.02em; background: linear-gradient(135deg, var(--green), var(--green-bright)); flex-shrink: 0; }
 .dgf-cocard__badge--exit { background: #fff; color: var(--green); border: 1px solid rgba(255,255,255,0.12); }
-.dgf-cocard__badge--img { background: #fff; padding: 7px; border: 1px solid rgba(255,255,255,0.12); }
-.dgf-cocard__badge--img img { width: 100%; height: 100%; object-fit: contain; filter: grayscale(1); transition: filter 0.25s var(--ease); }
+/* Logo badge. The hover cue has to work for monochrome marks too: several
+ * portfolio logos are single-colour by design (Axur, for one), so removing
+ * grayscale reveals nothing. The ring and the nudge are the colour-independent
+ * part of the feedback; the colour reveal is a bonus where there is colour. */
+.dgf-cocard__badge--img { background: #fff; padding: 7px; border: 1px solid rgba(255,255,255,0.12); transition: border-color 0.25s var(--ease), box-shadow 0.25s var(--ease), transform 0.25s var(--ease); }
+.dgf-cocard__badge--img img { width: 100%; height: 100%; object-fit: contain; filter: grayscale(1); transition: filter 0.25s var(--ease), transform 0.25s var(--ease); }
 .dgf-cocard__body { flex: 1; }
 .dgf-cocard__name { font-size: 15.5px; font-weight: 500; color: #fff; margin-bottom: 6px; letter-spacing: -0.01em; }
 .dgf-cocard__desc { font-size: 13.5px; color: var(--on-dark-3); line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
@@ -262,7 +266,8 @@ a.dgf-cocard { text-decoration: none; color: inherit; }
   .dgf-filter:hover { border-color: var(--green-bright); color: #fff; }
   .dgf-thesis:hover { background: var(--paper); transform: translateY(-2px); box-shadow: var(--shadow-card); }
   .dgf-cocard:hover { border-color: var(--green-bright); transform: translateY(-3px); box-shadow: 0 8px 32px rgba(29,118,72,0.18); }
-  .dgf-cocard:hover .dgf-cocard__badge--img img { filter: none; }
+  .dgf-cocard:hover .dgf-cocard__badge--img { border-color: rgba(60,171,110,0.6); box-shadow: 0 0 0 3px rgba(60,171,110,0.16); transform: translateY(-1px); }
+  .dgf-cocard:hover .dgf-cocard__badge--img img { filter: none; transform: scale(1.07); }
   /* Hover is where the green is allowed back in — as a reward for intent,
    * not as the resting state of eleven cards at once. */
   a.dgf-teamcard:hover { border-color: rgba(46,167,109,0.45); background: var(--paper); transform: translateY(-2px); }
