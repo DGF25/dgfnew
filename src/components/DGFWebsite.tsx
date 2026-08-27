@@ -124,7 +124,7 @@ function CompanyBadge({ company }: { company: Company }) {
 
   return (
     <div
-      className={`dgf-cocard__badge${company.type === "saida" ? " dgf-cocard__badge--exit" : ""}${src ? " dgf-cocard__badge--img" : ""}`}
+      className={`dgf-cocard__badge${company.type === "saida" ? " dgf-cocard__badge--exit" : ""}${src ? " dgf-cocard__badge--img" : ""}${src && company.badgeDark ? " dgf-cocard__badge--dark" : ""}`}
       aria-hidden="true"
     >
       {src ? (
@@ -215,7 +215,13 @@ export default function DGFWebsite() {
       filter === "all"
         ? searching
           ? companies
-          : companies.filter((c) => c.highlight)
+          : companies
+              .filter((c) => c.highlight)
+              /* Selected Investments mixes active and realized companies, so
+               * its order cannot come from the array — that drives the other
+               * two tabs. `sel` gives this tab an order of its own. */
+              .slice()
+              .sort((a, b) => (a.sel ?? 999) - (b.sel ?? 999))
         : companies.filter((c) => c.type === filter);
     if (!searching) return base;
     const q = normalize(query);
