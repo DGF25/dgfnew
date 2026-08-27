@@ -25,7 +25,7 @@ export const companies: Company[] = [
   { id: 3, ini: "ME", name: "Memed", desc: "Digital prescription platform for physicians", type: "ativo", highlight: true, site: "https://memed.com.br" },
   { id: 4, ini: "IN", name: "InHire", desc: "Data-driven recruiting for mid-market companies", type: "ativo", highlight: true, site: "https://inhire.com.br" },
   { id: 5, ini: "MG", name: "Maggu", desc: "AI copilot for pharmacy retail", type: "ativo", highlight: true, site: "https://maggu.ai" },
-  { id: 61, ini: "MK", name: "Makasí", desc: "Digital construction financing platform", type: "ativo", highlight: true, site: "https://www.makasi.com.br" },
+  { id: 61, ini: "MK", name: "Makasí", desc: "Digital construction financing platform", type: "ativo", highlight: true, site: "https://www.makasi.com.br", logo: "https://cdn.prod.website-files.com/67ddba4d851e55d5c8550d6d/681d3084d7ecb14fb9cd060f_logo_black_highres.svg" },
   { id: 7, ini: "MF", name: "Mudflap", desc: "Financial platform for truckers in the US", type: "ativo", highlight: true, site: "https://www.mudflapinc.com" },
   { id: 62, ini: "PL", name: "Pluggy", desc: "Open Finance API for bank data and payments", type: "ativo", highlight: true, site: "https://www.pluggy.ai" },
   { id: 8, ini: "TK", name: "Takeat", desc: "All-in-one foodservice operating system", type: "ativo", highlight: true, site: "https://www.takeat.app" },
@@ -45,6 +45,10 @@ export const companies: Company[] = [
   { id: 22, ini: "TA", name: "TripAround", desc: "Hospitality facility management system", type: "ativo", site: "https://www.triparound.com" },
   { id: 14, ini: "F1", name: "Frota 162", desc: "Fleet management and maintenance software", type: "ativo", site: "https://www.frota162.com.br" },
   { id: 24, ini: "EM", name: "Mercado Eletrônico", desc: "B2B marketplace and corporate procurement", type: "ativo", site: "https://www.me.com.br" },
+  { id: 63, ini: "VI", name: "Visio", desc: "Computer vision for retail and food service operations", type: "ativo", site: "https://visio.ai" },
+  { id: 64, ini: "LQ", name: "Looqbox", desc: "Conversational business intelligence for retail", type: "ativo", site: "https://looqbox.com" },
+  { id: 65, ini: "AM", name: "Amicci", desc: "Private label development platform for retailers", type: "ativo", site: "https://amicci.com.br" },
+  { id: 66, ini: "DS", name: "DexScreener", desc: "Real-time analytics for decentralized exchanges", type: "ativo", site: "https://dexscreener.com" },
   { id: 6, ini: "CS", name: "Cargo Sapiens", desc: "Logistics intelligence for the freight industry", type: "ativo", site: "https://cargosapiens.com" },
   { id: 25, ini: "LG", name: "Logocenter", desc: "ERP software, merged into TOTVS", type: "saida", highlight: true, site: "https://www.totvs.com" },
   { id: 26, ini: "BU", name: "Buddemeyer", desc: "Textile company, realized exit", type: "saida", site: "https://www.buddemeyer.com.br" },
@@ -82,6 +86,8 @@ export const companies: Company[] = [
   { id: 58, ini: "DW", name: "Drumwave", desc: "Consumer data monetization, realized exit", type: "saida", site: "https://drumwave.com" },
   { id: 59, ini: "AT", name: "Adianta", desc: "Receivables financing, acquired by Liber Capital", type: "saida", site: "https://www.libercapital.com.br" },
   { id: 60, ini: "IB", name: "IBBX", desc: "Industrial IoT monitoring, realized exit", type: "saida", site: "https://ibbx.tech" },
+  { id: 67, ini: "LX", name: "Looplex", desc: "Computational law platform, realized exit", type: "saida", site: "https://www.looplex.com.br" },
+  { id: 68, ini: "AX", name: "Axur", desc: "Digital risk protection, acquired by Infoblox", type: "saida", site: "https://www.axur.com" },
 ];
 
 export interface Thesis { n: string; title: string; body: string; }
