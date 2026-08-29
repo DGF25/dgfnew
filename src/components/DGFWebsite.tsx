@@ -1,5 +1,6 @@
 /**
  * DGF Investimentos — single-page site.
+ * Produced by H. Uehara (DGF Investimentos).
  *
  * MAINTENANCE MAP
  * ─ Copy & content ......... edit the JSX sections below (#home, #sobre, #tese,
@@ -546,7 +547,7 @@ export default function DGFWebsite() {
           <Link className="dgf-footer__link" to="/cvm-disclosures">CVM Disclosures</Link>
         </nav>
         <div className="dgf-footer__rule" aria-hidden="true" />
-        <div className="dgf-footer__copy">© {new Date().getFullYear()} DGF Investimentos · São Paulo</div>
+        <div className="dgf-footer__copy">© {new Date().getFullYear()} DGF Investimentos · São Paulo · Site by H. Uehara</div>
       </footer>
 
       {/* Floating back-to-top: appears once the reader leaves the hero. */}
