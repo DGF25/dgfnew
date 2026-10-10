@@ -2,6 +2,7 @@ import "./lib/error-capture";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
+import { handleFounders, isFoundersPath } from "./lib/founders";
 
 type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
@@ -69,6 +70,12 @@ async function normalizeCatastrophicSsrResponse(response: Response): Promise<Res
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
+      /* Restricted portfolio-benefits area: served directly by the Worker,
+       * outside the React app, so its content never ships in a public bundle.
+       * See src/lib/founders.ts. */
+      if (isFoundersPath(new URL(request.url).pathname)) {
+        return await handleFounders(request, env);
+      }
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       return await normalizeCatastrophicSsrResponse(response);
