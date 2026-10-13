@@ -27,7 +27,7 @@ export const FOUNDERS_PATH = "/founders";
 
 const DEFAULT_DATABASE_ID = "b03a24a0dce44f8fb25a96b78281999b";
 const CACHE_TTL_MS = 10 * 60 * 1000;
-const CONTACT_EMAIL = "investors@dgf.com.br";
+const CONTACT_EMAIL = "startups@dgf.com.br";
 
 type Env = {
   NOTION_TOKEN?: string;
@@ -209,7 +209,9 @@ function domainOf(u: string): string {
 
 function formatDate(iso: string): string {
   const [y, m, d] = iso.slice(0, 10).split("-");
-  return d && m && y ? `${d}/${m}/${y}` : iso;
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const mon = months[Number(m) - 1];
+  return d && mon && y ? `${mon} ${Number(d)}, ${y}` : iso;
 }
 
 const PAGE_CSS = `
@@ -253,10 +255,10 @@ function card(b: Benefit): string {
     : initials;
 
   const rows = [
-    ["Elegibilidade", b.eligibility],
-    ["Como ativar", b.howTo],
-    ["Contato no DGF", b.contact],
-    ["Válido até", b.validUntil ? formatDate(b.validUntil) : ""],
+    ["Eligibility", b.eligibility],
+    ["How to activate", b.howTo],
+    ["DGF contact", b.contact],
+    ["Valid until", b.validUntil ? formatDate(b.validUntil) : ""],
   ]
     .filter(([, v]) => v)
     .map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`)
@@ -273,14 +275,14 @@ function card(b: Benefit): string {
     </div>
     ${b.highlight ? `<div class="fb-highlight">${esc(b.highlight)}</div>` : ""}
     ${b.description ? `<p class="fb-desc">${esc(b.description)}</p>` : ""}
-    ${rows ? `<details><summary>Elegibilidade e como ativar</summary><dl class="fb-dl">${rows}</dl></details>` : ""}
-    ${b.link ? `<div class="fb-actions"><a class="dgf-btn dgf-btn--primary" href="${safeUrl(b.link)}" target="_blank" rel="noopener noreferrer">Ativar benefício ↗</a></div>` : ""}
+    ${rows ? `<details><summary>Eligibility &amp; how to activate</summary><dl class="fb-dl">${rows}</dl></details>` : ""}
+    ${b.link ? `<div class="fb-actions"><a class="dgf-btn dgf-btn--primary" href="${safeUrl(b.link)}" target="_blank" rel="noopener noreferrer">Activate benefit ↗</a></div>` : ""}
   </article>`;
 }
 
 function shell(title: string, body: string): string {
   return `<!doctype html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -299,7 +301,7 @@ function shell(title: string, body: string): string {
       <img src="${LOGO_WHITE}" alt="" height="28" style="height:28px;width:auto;display:block">
     </a>
     <div class="dgf-nav__links"></div>
-    <a href="/cdn-cgi/access/logout" class="dgf-cta dgf-nav__cta">Sair</a>
+    <a href="/cdn-cgi/access/logout" class="dgf-cta dgf-nav__cta">Sign out</a>
   </nav>
   <main class="fb-wrap"><div class="dgf-container">${body}</div></main>
 </div>
@@ -310,15 +312,15 @@ function shell(title: string, body: string): string {
 function page(email: string, items: Benefit[]): string {
   const cats = [...new Set(items.map((b) => b.category).filter(Boolean))];
   const filters = cats.length > 1
-    ? `<div class="fb-filters" role="group" aria-label="Filtrar por categoria">
-        <button class="dgf-filter fb-filter" aria-pressed="true" data-f="">Todos</button>
+    ? `<div class="fb-filters" role="group" aria-label="Filter by category">
+        <button class="dgf-filter fb-filter" aria-pressed="true" data-f="">All</button>
         ${cats.map((c) => `<button class="dgf-filter fb-filter" aria-pressed="false" data-f="${esc(c)}">${esc(c)}</button>`).join("")}
       </div>`
     : "";
 
   const grid = items.length
     ? `<div class="fb-grid">${items.map(card).join("")}</div>`
-    : `<p class="fb-empty">Nenhum benefício publicado no momento.</p>`;
+    : `<p class="fb-empty">No benefits published yet.</p>`;
 
   /* Category filter. Plain JS, no template placeholders inside. */
   const script = `<script>
@@ -337,13 +339,13 @@ document.querySelectorAll('.fb-filter').forEach(function (btn) {
     "Portfolio Benefits",
     `<header class="fb-head">
       <p class="dgf-eyebrow dgf-eyebrow--light">Portfolio Benefits</p>
-      <h1 class="dgf-h2">Benefícios para as <span style="color:var(--green-accent)">investidas DGF</span></h1>
-      <p class="dgf-lead">Condições negociadas com parceiros para as empresas do portfólio. Conteúdo exclusivo: por favor, não compartilhe os links e códigos fora da sua empresa.</p>
-      ${email ? `<p class="fb-user">Conectado como ${esc(email)} · <a href="/cdn-cgi/access/logout">sair</a></p>` : ""}
+      <h1 class="dgf-h2">Benefits for <span style="color:var(--green-accent)">DGF portfolio companies</span></h1>
+      <p class="dgf-lead">Terms negotiated with partners for DGF portfolio companies. Exclusive content: please do not share these links and codes outside your company.</p>
+      ${email ? `<p class="fb-user">Signed in as ${esc(email)} · <a href="/cdn-cgi/access/logout">sign out</a></p>` : ""}
     </header>
     ${filters}
     ${grid}
-    <p class="fb-foot">Dúvidas sobre algum benefício ou sugestão de parceria? Fale com a gente em <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>.</p>
+    <p class="fb-foot">Questions about a benefit, or a partnership to suggest? Write to us at <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>.</p>
     ${script}`,
   );
 }
@@ -380,14 +382,14 @@ export async function handleFounders(request: Request, rawEnv: unknown): Promise
   const env = (rawEnv ?? {}) as Env;
 
   if (!env.ACCESS_TEAM_DOMAIN || !env.ACCESS_AUD || !env.NOTION_TOKEN) {
-    return message("Área em configuração", "Esta área ainda não foi ativada.", 503);
+    return message("Not available yet", "This area has not been activated yet.", 503);
   }
 
   const email = await verifyAccess(request, env);
   if (email === null) {
     return message(
-      "Acesso restrito",
-      `Esta área é exclusiva das empresas do portfólio DGF. Se você faz parte de uma investida e não consegue entrar, escreva para <a href="mailto:${CONTACT_EMAIL}" style="color:var(--green-accent)">${CONTACT_EMAIL}</a>.`,
+      "Restricted access",
+      `This area is exclusive to DGF portfolio companies. If you work at a portfolio company and cannot sign in, write to <a href="mailto:${CONTACT_EMAIL}" style="color:var(--green-accent)">${CONTACT_EMAIL}</a>.`,
       403,
     );
   }
@@ -397,6 +399,6 @@ export async function handleFounders(request: Request, rawEnv: unknown): Promise
     return respond(page(email, items));
   } catch (err) {
     console.error(err);
-    return message("Indisponível no momento", "Não conseguimos carregar os benefícios agora. Tente novamente em alguns minutos.", 502);
+    return message("Temporarily unavailable", "We could not load the benefits right now. Please try again in a few minutes.", 502);
   }
 }
