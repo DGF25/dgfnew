@@ -22,6 +22,9 @@
  */
 import { dgfStyles } from "../components/dgf/dgf-styles";
 import { LOGO_WHITE } from "../components/dgf/logo-assets";
+/* The fetch() env argument does not always reach this module through the
+ * framework wrapper, so bindings are also read from the runtime module. */
+import { env as workerEnv } from "cloudflare:workers";
 
 export const FOUNDERS_PATH = "/founders";
 
@@ -378,8 +381,20 @@ export function isFoundersPath(pathname: string): boolean {
   return pathname === FOUNDERS_PATH || pathname.startsWith(`${FOUNDERS_PATH}/`);
 }
 
+function pickEnv(rawEnv: unknown): Env {
+  const passed = (rawEnv ?? {}) as Env;
+  if (passed.ACCESS_AUD && passed.ACCESS_TEAM_DOMAIN && passed.NOTION_TOKEN) return passed;
+  return (workerEnv ?? {}) as Env;
+}
+
 export async function handleFounders(request: Request, rawEnv: unknown): Promise<Response> {
-  const env = (rawEnv ?? {}) as Env;
+  /* Access protects dgf.com.br only; send www visitors to the protected host. */
+  const url = new URL(request.url);
+  if (url.hostname === "www.dgf.com.br") {
+    return Response.redirect(`https://dgf.com.br${url.pathname}${url.search}`, 301);
+  }
+
+  const env = pickEnv(rawEnv);
 
   if (!env.ACCESS_TEAM_DOMAIN || !env.ACCESS_AUD || !env.NOTION_TOKEN) {
     return message("Not available yet", "This area has not been activated yet.", 503);
