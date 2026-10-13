@@ -22,9 +22,6 @@
  */
 import { dgfStyles } from "../components/dgf/dgf-styles";
 import { LOGO_WHITE } from "../components/dgf/logo-assets";
-/* The fetch() env argument does not always reach this module through the
- * framework wrapper, so bindings are also read from the runtime module. */
-import { env as workerEnv } from "cloudflare:workers";
 
 export const FOUNDERS_PATH = "/founders";
 
@@ -381,10 +378,29 @@ export function isFoundersPath(pathname: string): boolean {
   return pathname === FOUNDERS_PATH || pathname.startsWith(`${FOUNDERS_PATH}/`);
 }
 
-function pickEnv(rawEnv: unknown): Env {
-  const passed = (rawEnv ?? {}) as Env;
-  if (passed.ACCESS_AUD && passed.ACCESS_TEAM_DOMAIN && passed.NOTION_TOKEN) return passed;
-  return (workerEnv ?? {}) as Env;
+/**
+ * Finds the Worker bindings. The build goes through Nitro, whose wrapper does
+ * not always pass `env` as the second fetch() argument, so we look in every
+ * place it can live. A static import of "cloudflare:workers" breaks the Vite
+ * build, hence the runtime import with a computed specifier.
+ */
+async function pickEnv(request: Request, rawEnv: unknown): Promise<Env> {
+  const ok = (e: unknown): e is Env => {
+    const x = e as Env | undefined;
+    return Boolean(x && x.ACCESS_AUD && x.ACCESS_TEAM_DOMAIN && x.NOTION_TOKEN);
+  };
+  const r = rawEnv as { cloudflare?: { env?: unknown }; env?: unknown } | undefined;
+  const req = request as unknown as { runtime?: { cloudflare?: { env?: unknown } } };
+  const candidates = [rawEnv, r?.cloudflare?.env, r?.env, req.runtime?.cloudflare?.env, (globalThis as { __env__?: unknown }).__env__];
+  for (const c of candidates) if (ok(c)) return c;
+  try {
+    const spec = "cloudflare:" + "workers";
+    const mod = (await import(/* @vite-ignore */ spec)) as { env?: unknown };
+    if (ok(mod.env)) return mod.env;
+  } catch {
+    /* not running on workerd */
+  }
+  return {};
 }
 
 export async function handleFounders(request: Request, rawEnv: unknown): Promise<Response> {
@@ -394,7 +410,7 @@ export async function handleFounders(request: Request, rawEnv: unknown): Promise
     return Response.redirect(`https://dgf.com.br${url.pathname}${url.search}`, 301);
   }
 
-  const env = pickEnv(rawEnv);
+  const env = await pickEnv(request, rawEnv);
 
   if (!env.ACCESS_TEAM_DOMAIN || !env.ACCESS_AUD || !env.NOTION_TOKEN) {
     return message("Not available yet", "This area has not been activated yet.", 503);
