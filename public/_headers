@@ -1,0 +1,10 @@
+# Static asset headers (Cloudflare Workers static assets).
+# Files under /assets have content hashes in their names, so they can be cached forever.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/dgf-logo-*.png
+  Cache-Control: public, max-age=604800
+
+/*
+  X-Content-Type-Options: nosniff
