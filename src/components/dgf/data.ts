@@ -66,7 +66,7 @@ export const companies: Company[] = [
   { id: 68, ini: "AX", name: "Axur", desc: "Digital risk protection, acquired by Infoblox", type: "saida", site: "https://www.axur.com" },
   { id: 29, ini: "RN", name: "Reason", desc: "Power-grid automation, acquired by Alstom Grid", type: "saida", site: "https://www.gevernova.com" },
   { id: 30, ini: "ST", name: "Suntech", desc: "Telecom intelligence software, acquired by Verint", type: "saida", site: "https://www.verint.com" },
-  { id: 31, ini: "IC", name: "Incontrol", desc: "IT management solutions, realized exit", type: "saida" },
+  { id: 31, ini: "IC", name: "Incontrol", desc: "Flow and level measurement instruments, realized exit", type: "saida", site: "https://www.incontrol.ind.br/en/empresa" },
   { id: 32, ini: "BR", name: "Bry", desc: "Digital signature software, realized exit", type: "saida", site: "https://www.bry.com.br" },
   { id: 33, ini: "MI", name: "Maie", desc: "Management software, realized exit", type: "saida" },
   { id: 34, ini: "IM", name: "Image", desc: "Media technology, realized exit", type: "saida" },
