@@ -50,7 +50,7 @@ function CvmDisclosures() {
           <Logo variant="white" height={28} decorative />
         </Link>
         <div className="dgf-nav__links">
-          <Link to="/" className="dgf-navlink">Home</Link>
+          
         </div>
         <Link to="/" className="dgf-cta dgf-nav__cta">← Back to site</Link>
       </nav>

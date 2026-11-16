@@ -1,6 +1,8 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Outlet, Link, createRootRouteWithContext, useRouter, HeadContent, Scripts } from "@tanstack/react-router";
 import appCss from "../styles.css?url";
+import { dgfStyles } from "../components/dgf/dgf-styles";
+import { Logo } from "../components/dgf/Logo";
 
 /** Canonical origin of the site. Drives <link rel="canonical">, og:url and the
  *  absolute URL of the social share image. Must match the domain users actually
@@ -11,17 +13,31 @@ const OG_IMAGE = `${SITE_URL}/dgf-og-image.png`;
 /** Google Analytics 4 measurement ID. Empty string disables tracking entirely. */
 const GA_ID = "G-PV4KPCQY3C";
 
+/** Structured data: lets search engines show the firm's name, logo and
+ *  profile links correctly. Keep in sync with the footer and contact data. */
+const ORG_JSON_LD = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "DGF Investimentos",
+  url: SITE_URL,
+  logo: `${SITE_URL}/favicon-512.png`,
+  foundingDate: "2001",
+  description: "Venture capital firm focused on B2B software, based in São Paulo.",
+  address: { "@type": "PostalAddress", addressLocality: "São Paulo", addressCountry: "BR" },
+  sameAs: ["https://br.linkedin.com/company/dgf-investimentos"],
+});
+
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">The page you're looking for doesn't exist or has been moved.</p>
-        <div className="mt-6">
-          <Link to="/" className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90">Back to home</Link>
-        </div>
-      </div>
+    <div className="dgf-root">
+      <style dangerouslySetInnerHTML={{ __html: dgfStyles }} />
+      <main className="dgf-notfound">
+        <div className="dgf-notfound__logo"><Logo variant="white" height={30} /></div>
+        <div className="dgf-notfound__code" aria-hidden="true">404</div>
+        <h1>Page not found</h1>
+        <p>The page you're looking for doesn't exist or has been moved.</p>
+        <Link to="/" className="dgf-btn dgf-btn--primary">Back to home</Link>
+      </main>
     </div>
   );
 }
@@ -30,15 +46,17 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">This page didn't load</h1>
-        <p className="mt-2 text-sm text-muted-foreground">Something went wrong on our end. You can try again or go back home.</p>
-        <div className="mt-6 flex flex-wrap justify-center gap-2">
-          <button onClick={() => { router.invalidate(); reset(); }} className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90">Try again</button>
-          <a href="/" className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent">Back to home</a>
+    <div className="dgf-root">
+      <style dangerouslySetInnerHTML={{ __html: dgfStyles }} />
+      <main className="dgf-notfound">
+        <div className="dgf-notfound__logo"><Logo variant="white" height={30} /></div>
+        <h1>This page didn't load</h1>
+        <p>Something went wrong on our end. You can try again or go back home.</p>
+        <div className="dgf-actions" style={{ justifyContent: "center" }}>
+          <button onClick={() => { router.invalidate(); reset(); }} className="dgf-btn dgf-btn--primary">Try again</button>
+          <a href="/" className="dgf-btn dgf-btn--ghost">Back to home</a>
         </div>
-      </div>
+      </main>
     </div>
   );
 }
@@ -113,7 +131,7 @@ gtag('config', '${GA_ID}');`,
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <head><HeadContent /><Analytics /></head>
+      <head><HeadContent /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: ORG_JSON_LD }} /><Analytics /></head>
       <body>{children}<Scripts /></body>
     </html>
   );
