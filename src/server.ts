@@ -67,6 +67,24 @@ async function normalizeCatastrophicSsrResponse(response: Response): Promise<Res
   return brandedErrorResponse();
 }
 
+/** Baseline security headers for every response the Worker produces.
+ *  The response is copied first because some (redirects) have immutable headers. */
+function withSecurityHeaders(response: Response): Response {
+  try {
+    const res = new Response(response.body, response);
+    res.headers.set("X-Content-Type-Options", "nosniff");
+    res.headers.set("X-Frame-Options", "SAMEORIGIN");
+    res.headers.set("Strict-Transport-Security", "max-age=31536000");
+    res.headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+    if (!res.headers.has("Referrer-Policy")) {
+      res.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+    }
+    return res;
+  } catch {
+    return response;
+  }
+}
+
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
@@ -74,11 +92,11 @@ export default {
        * outside the React app, so its content never ships in a public bundle.
        * See src/lib/founders.ts. */
       if (isFoundersPath(new URL(request.url).pathname)) {
-        return await handleFounders(request, env);
+        return withSecurityHeaders(await handleFounders(request, env));
       }
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
-      return await normalizeCatastrophicSsrResponse(response);
+      return withSecurityHeaders(await normalizeCatastrophicSsrResponse(response));
     } catch (error) {
       console.error(error);
       return brandedErrorResponse();
