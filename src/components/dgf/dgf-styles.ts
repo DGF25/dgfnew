@@ -65,7 +65,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
 
 /* ───────────────────────── nav + mobile menu ───────────────────────── */
 .dgf-nav { position: fixed; inset: 0 0 auto 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; height: var(--header-h); padding: 0 20px; background: linear-gradient(180deg, rgba(10,31,21,0.28), rgba(10,31,21,0.04)); -webkit-backdrop-filter: blur(10px) saturate(130%); backdrop-filter: blur(10px) saturate(130%); border-bottom: 1px solid rgba(255,255,255,0.04); transition: background 0.35s var(--ease), backdrop-filter 0.35s var(--ease), border-color 0.35s var(--ease), box-shadow 0.35s var(--ease); }
-.dgf-nav--scrolled { background: linear-gradient(180deg, rgba(10,31,21,0.82), rgba(10,31,21,0.66)); -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%); border-bottom-color: rgba(255,255,255,0.08); box-shadow: 0 8px 32px rgba(0,0,0,0.22); }
+.dgf-nav--scrolled { background: linear-gradient(180deg, rgba(10,31,21,0.95), rgba(10,31,21,0.9)); -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%); border-bottom-color: rgba(255,255,255,0.08); box-shadow: 0 6px 24px rgba(0,0,0,0.14); }
 .dgf-brand { display: inline-flex; background: none; border: 0; cursor: pointer; padding: 4px; }
 .dgf-nav__links { display: none; align-items: center; gap: 4px; }
 .dgf-navlink { font-size: 13.5px; font-weight: 500; color: var(--on-dark-2); background: none; border: 0; cursor: pointer; padding: 10px 15px; border-radius: 8px; transition: color 0.2s var(--ease); font-family: inherit; }
@@ -205,7 +205,7 @@ a.dgf-cocard { text-decoration: none; color: inherit; }
 .dgf-trackstat__num { font-size: clamp(34px, 3.4vw, 52px); font-weight: 600; letter-spacing: -0.04em; line-height: 1; color: #fff; }
 /* Long textual values ("Top Quartile") scale down so they never overflow. */
 .dgf-trackstat__num--text { font-size: clamp(19px, 1.8vw, 27px); line-height: 1.2; letter-spacing: -0.02em; }
-.dgf-trackstat__suffix { font-size: clamp(20px, 2vw, 30px); font-weight: 500; color: rgba(255,255,255,0.66); letter-spacing: -0.02em; }
+.dgf-trackstat__suffix { font-size: clamp(20px, 2vw, 30px); font-weight: 500; color: var(--green-accent); letter-spacing: -0.02em; }
 
 /* ───────────────────────── team ───────────────────────── */
 /* Same reasoning as .dgf-cards: no paint containment, cards lift on hover. */
@@ -261,6 +261,13 @@ a.dgf-cocard { text-decoration: none; color: inherit; }
 .dgf-cvm__doc { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 20px; background: #fff; border: 1px solid var(--border); border-radius: var(--r-md); color: var(--dark); text-decoration: none; font-size: 14px; transition: border-color 0.2s var(--ease), transform 0.2s var(--ease), box-shadow 0.2s var(--ease); }
 .dgf-cvm__doc svg { flex-shrink: 0; color: var(--green); }
 
+/* ───────────────────────── 404 / error page ───────────────────────── */
+.dgf-notfound { min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 120px 20px 80px; background: linear-gradient(180deg, var(--dark) 0%, var(--dark-2) 100%); color: var(--on-dark); }
+.dgf-notfound__logo { margin-bottom: 40px; opacity: 0.9; }
+.dgf-notfound__code { font-size: clamp(72px, 16vw, 140px); font-weight: 600; letter-spacing: -0.04em; line-height: 1; color: #fff; }
+.dgf-notfound h1 { font-size: 1.5rem; font-weight: 500; letter-spacing: -0.02em; color: #fff; margin: 18px 0 10px; }
+.dgf-notfound p { font-size: var(--fs-body); color: var(--on-dark-2); max-width: 44ch; line-height: 1.65; margin-bottom: 32px; }
+
 /* ─────────────── hover-capable devices only (no sticky touch hovers) ─────────────── */
 @media (hover: hover) and (pointer: fine) {
   .dgf-navlink:hover { color: #fff; }
@@ -294,9 +301,9 @@ a.dgf-cocard { text-decoration: none; color: inherit; }
   .dgf-nav { padding: 0 40px; }
   .dgf-nav__links, .dgf-nav__cta { display: flex; }
   .dgf-burger { display: none; }
-  .dgf-hero { padding: 140px 6vw 120px; }
+  .dgf-hero { padding: 128px 6vw 72px; }
   .dgf-section { padding: var(--section-y) 6vw; }
-  .dgf-hero__stats { margin-top: 96px; padding: 48px 0; }
+  .dgf-hero__stats { margin-top: 64px; padding: 36px 0; }
   .dgf-hstat { padding: 0 28px; }
   .dgf-grid-3 { grid-template-columns: 1fr 1fr; }
   .dgf-team { grid-template-columns: 1fr 1fr; }
