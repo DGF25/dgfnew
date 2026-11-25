@@ -107,6 +107,66 @@ function Reveal({
 }
 
 /**
+ * Number that counts up from 0 the first time it scrolls into view.
+ * Non-numeric values ("Top Quartile") render unchanged. With reduced motion
+ * the final value shows at once. The real value sits in a visually hidden
+ * span, so screen readers and crawlers read "67", never the frames in between.
+ */
+function CountUp({ value, duration = 1600 }: { value: string; duration?: number }) {
+  const target = /^\d+$/.test(value) ? parseInt(value, 10) : null;
+  const ref = useRef<HTMLSpanElement | null>(null);
+  const [n, setN] = useState(0);
+
+  useEffect(() => {
+    if (target === null) return;
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) {
+      setN(target);
+      return;
+    }
+    let raf = 0;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        obs.disconnect();
+        const start = performance.now();
+        const tick = (now: number) => {
+          const p = Math.min(1, (now - start) / duration);
+          const eased = 1 - Math.pow(1 - p, 3);
+          setN(Math.round(eased * target));
+          if (p < 1) raf = requestAnimationFrame(tick);
+        };
+        raf = requestAnimationFrame(tick);
+      },
+      { threshold: 0.4 },
+    );
+    obs.observe(el);
+    return () => {
+      obs.disconnect();
+      cancelAnimationFrame(raf);
+    };
+  }, [target, duration]);
+
+  if (target === null) return <>{value}</>;
+  return (
+    <span ref={ref}>
+      <span style={SR_ONLY}>{value}</span>
+      <span aria-hidden="true" style={{ fontVariantNumeric: "tabular-nums" }}>{n}</span>
+    </span>
+  );
+}
+
+const SR_ONLY: CSSProperties = {
+  position: "absolute",
+  width: 1,
+  height: 1,
+  overflow: "hidden",
+  clip: "rect(0 0 0 0)",
+  whiteSpace: "nowrap",
+};
+
+/**
  * Company logo with a graceful fallback chain:
  *   1. `company.logo` (explicit URL — most faithful, use when step 2 fails)
  *   2. Google's favicon service for `company.site`'s domain
@@ -309,7 +369,7 @@ export default function DGFWebsite() {
           <dl className="dgf-hero__stats">
             {heroStats.map((s) => (
               <div className="dgf-hstat" key={s.label}>
-                <dd className="dgf-hstat__num">{s.value}{s.suffix && <span className="suffix">{s.suffix}</span>}</dd>
+                <dd className="dgf-hstat__num"><CountUp value={s.value} />{s.suffix && <span className="suffix">{s.suffix}</span>}</dd>
                 <dt className="dgf-hstat__label">{s.label}</dt>
               </div>
             ))}
@@ -473,7 +533,7 @@ export default function DGFWebsite() {
                       <div className="dgf-trackstat__label">{s.label}</div>
                       <div className="dgf-trackstat__value">
                         {/* Long text values (e.g. "Top Quartile") get a smaller type scale so they never overflow on mobile. */}
-                        <span className={`dgf-trackstat__num${s.value.length > 4 ? " dgf-trackstat__num--text" : ""}`}>{s.value}</span>
+                        <span className={`dgf-trackstat__num${s.value.length > 4 ? " dgf-trackstat__num--text" : ""}`}><CountUp value={s.value} /></span>
                         {s.suffix && <span className="dgf-trackstat__suffix">{s.suffix}</span>}
                       </div>
                     </div>
